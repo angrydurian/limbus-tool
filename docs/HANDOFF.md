@@ -18,6 +18,7 @@
 | `docs/HANDOFF.md` | 이 문서 |
 | `docs/EGO-변환-안내.md` | E.G.O 캡처 → JSON 변환 규칙 |
 | `CLAUDE.md` | Claude Code용 작업 규칙 요약 |
+| `keywords/` | 키워드 아이콘 394개(PNG) + 설명(`keywords.json`, OCR 초안·`checked`로 검수 표시) + 설명 캡처 원본. v0.3 툴팁의 원본 데이터 |
 | `icons/v0.2/` | v0.2에서 추가한 키워드 아이콘 원본 PNG + `manifest.json`(이름 → 파일) |
 
 - **버전 번호를 새로 시작함 (2026-11-02)**: GitHub로 옮기면서 v0.1부터 다시 센다. v0.1 = 이전 번호 v3.0. 이 문서의 v1.x~v3.0은 모두 이전 번호다. 다음 버전은 v0.3.
