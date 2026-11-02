@@ -5,7 +5,7 @@ TIERS={"1":"Ⅰ","2":"Ⅱ","3":"Ⅲ","4":"Ⅳ","5":"Ⅴ","EX":"EX","Ⅰ":"Ⅰ","
 KWS=["화상","출혈","진동","파열","침잠","호흡","충전","참격","관통","타격"]
 LABELS={"연관","등급","첫 등장","강화 여부","효과","기본 효과","+","++","언어별 표기","기프트 상세 정보"}
 def parse(text):
-    lines=[l.strip() for l in text.splitlines()]
+    lines=[re.sub(r"\[\d+\]","",l).strip() for l in text.splitlines()]  # 나무위키 각주 번호 제거
     lines=[l for l in lines if l]
     out=[];cur=None;sec=None
     def new(): return {"name":None,"tier":None,"keyword":None,"price":None,"source":"통상","limit":None,"related":None,"first":None,"upgrade":None,"effects":{"base":[],"plus":[],"plus2":[]}}
