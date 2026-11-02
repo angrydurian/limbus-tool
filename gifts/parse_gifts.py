@@ -45,6 +45,8 @@ def parse(text):
             else:cur["effects"][sec].append(l)
         i+=1
     if cur:out.append(cur)
+    for g in out:  # +/++ 효과가 있으면 강화 가능으로 봄(나무위키 "강화 여부" 칸 오타 대비)
+        if g["effects"]["plus"] and g["upgrade"] is False:g["upgrade"]=True;g["note_fix"]="강화 여부 칸은 '불가'였지만 +/++ 효과가 있어 가능으로 저장"
     return out
 if __name__=="__main__":
     p="gifts/gifts.json";d=json.load(open(p,encoding="utf8"))
