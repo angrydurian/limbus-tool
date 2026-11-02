@@ -15,7 +15,12 @@ for src,name in zip(args[::2],args[1::2]):
     bright=lambda x,y:sum(px[x,y])>500
     sep=next((x for x in range(60,w) if sum(bright(x,y) for y in range(40,min(150,h)))>90),152)
     # 아이콘 칸 = 구분선 왼쪽. 위아래는 빨간/주황 띠(맨 아래 줄)와 바깥 여백을 빼고 정사각형으로
-    def redrow(y):return sum(1 for x in range(5,sep-5) if px[x,y][0]>150 and px[x,y][2]<80)>(sep-10)*0.6  # 아래 띠(빨강·주황·노랑)
+    def redrow(y):  # 아래 색 띠(빨강·주황·노랑·초록·청록·파랑 등) 또는 흰 여백
+        n=0
+        for x in range(5,sep-5):
+            c=px[x,y];mx,mn=max(c),min(c)
+            if (mx>110 and mx-mn>60) or mn>200:n+=1
+        return n>(sep-10)*0.6
     bottom=h
     for y in range(h-1,h//2,-1):
         if not redrow(y):bottom=y+1;break
