@@ -279,6 +279,21 @@ button.cell:hover{background:var(--panel2)}
 .ownsw{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink);cursor:pointer}
 .ownsw input{width:16px;height:16px;accent-color:var(--accent)}
 .own-y{font-size:11.5px;font-weight:600;color:var(--gluttony)}.own-n{font-size:11.5px;color:var(--muted)}
+/* 추천 덱 */
+.rectop{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+#recBody{display:flex;flex-direction:column;gap:14px}
+.rec .an{display:flex;flex-direction:column;gap:8px}
+.rdesc{margin:0;white-space:pre-wrap;font-size:14px}
+.rlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.rlist li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-top:1px dashed var(--line)}
+.rlist li:first-child{border-top:0}
+.rno{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.rlist li.wait .rno{background:var(--panel2);color:var(--ink);border:1.5px solid var(--muted)}
+.rwho{min-width:0;font-size:13.5px}.rwho b{font:700 14px var(--serif)}
+.recos{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.echip.miss{opacity:.55;text-decoration:line-through}
+.own-miss{color:var(--wrath);font-size:12.5px}
+.rbtns{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 #kwSearch{flex:none}
 #gcOut{width:100%;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
 .hide{display:none!important}
@@ -297,6 +312,7 @@ button.cell:hover{background:var(--panel2)}
       <button role="tab" aria-selected="false" data-tab="build">편성</button>
       <button role="tab" aria-selected="false" data-tab="data">인격 데이터</button>
       <button role="tab" aria-selected="false" data-tab="own">내 보유</button>
+      <button role="tab" aria-selected="false" data-tab="recs">추천 덱</button>
       <button role="tab" aria-selected="false" data-tab="admin" id="adminTab" class="hide">관리자</button>
     </nav>
   </header>
@@ -308,6 +324,7 @@ button.cell:hover{background:var(--panel2)}
       <button class="hbtn" data-home="data"><span class="ht">인격 데이터</span><span class="hd">수감자·죄악·키워드·등급으로 인격을 찾아 스킬과 패시브를 봐요.</span></button>
       <button class="hbtn" data-home="keywords"><span class="ht">키워드 <small id="homeKwCount"></small></span><span class="hd">기본·범용·고유 키워드 설명과, 그 키워드를 쓰는 인격·E.G.O 목록을 봐요.</span></button>
       <button class="hbtn" data-home="own"><span class="ht">내 보유</span><span class="hd">가진 인격·E.G.O를 체크하고 동기화·해석 단계를 적어요. 편성할 때 보유한 것만 골라 볼 수 있어요.</span></button>
+      <button class="hbtn" data-home="recs"><span class="ht">추천 덱</span><span class="hd">관리자가 올린 추천 편성을 보고, 내 편성으로 불러오거나 게임 코드를 복사해요. 없는 인격·E.G.O도 알려 줘요.</span></button>
       <button class="hbtn hide" id="homeAdmin" data-home="admin"><span class="ht">관리자</span><span class="hd">캡처를 데이터로 바꾸고 인격·E.G.O를 입력해요.</span></button>
     </div>
     <p class="note">스킬·패시브 설명의 키워드는 PC에서는 마우스를 올리면, 휴대폰에서는 누르면 설명이 떠요.</p>
@@ -387,6 +404,7 @@ button.cell:hover{background:var(--panel2)}
   </section>
 
 <section id="tab-own" class="hide"><div id="ownBody" style="margin-top:14px"></div></section>
+<section id="tab-recs" class="hide"><div id="recBody" style="margin-top:14px"></div></section>
 <section id="tab-admin" class="hide"><div class="side" id="adminBody" style="margin-top:18px;max-width:760px"></div></section>
 </div>
 <div class="sheet-bg" id="sheetBg"></div>
@@ -904,6 +922,7 @@ document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>{
   if(db){
     db.collection("identities").onSnapshot(snap=>{const o={};snap.docs.forEach(d=>o[d.id]=d.data());cloud.overlay=o;rebuildData()},()=>{});
     db.collection("egos").onSnapshot(snap=>{const o={};snap.docs.forEach(d=>o[d.id]=d.data());cloud.egoOverlay=o;rebuildEgos()},()=>{});
+    if(typeof recsInit==="function")recsInit(db); // 추천 덱
   }
   if(cloud.admin&&db){
     $("#adminTab").classList.remove("hide");
@@ -1690,10 +1709,11 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&kwTipFor)hideKwTip(
 /* ---------- 홈 · 탭 ---------- */
 function goTab(t){
   document.querySelectorAll("nav.tabs button").forEach(x=>x.setAttribute("aria-selected",x.dataset.tab===t?"true":"false"));
-  ["home","build","data","own","admin"].forEach(k=>$("#tab-"+k).classList.toggle("hide",k!==t));
+  ["home","build","data","own","recs","admin"].forEach(k=>$("#tab-"+k).classList.toggle("hide",k!==t));
   $("#v2notice").classList.toggle("hide",t!=="build");
   if(t==="admin")renderAdmin();
   if(t==="own"&&typeof renderOwn==="function")renderOwn();
+  if(t==="recs"&&typeof renderRecs==="function")renderRecs();
 }
 document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>goTab(b.dataset.tab));
 document.querySelectorAll("[data-home]").forEach(b=>b.addEventListener("click",()=>{const t=b.dataset.home;if(t==="keywords")openKeywords();else goTab(t)}));
@@ -1760,6 +1780,100 @@ function renderOwn(){
     el("div",{class:"decks"},bulk(()=>{egos.forEach(e=>{if(!isOwnedEgo(e))own.egos[e.id]=4});saveOwn();renderOwn()},()=>{egos.forEach(e=>own.egos[e.id]=0);saveOwn();renderOwn()}),
       egos.length?el("div",{class:"olist"},...egos.map(e=>ownRow(isOwnedEgo(e),e.name+(e.base?" (기본)":""),el("span",{},el("span",{class:"gtag g-"+e.grade},e.grade)),()=>setEgoLevel(e,isOwnedEgo(e)?0:4),t5Sel(e)))):el("p",{class:"empty"},"이 수감자의 E.G.O 데이터가 아직 없어요.")));
   box.append(el("div",{class:"grid ogrid"},idPanel,egoPanel));
+}
+</script>
+
+<script>
+/* ================= v0.4+: 추천 덱 =================
+   db recs/{id} = {name, keywords, desc, tips, code(게임 편성 코드), updatedAt, by}. 읽기: 누구나, 쓰기: 관리자.
+   덱 구성은 게임 편성 코드로 저장(인격·E.G.O는 게임 번호로 찾아서 데이터가 바뀌어도 유지) */
+cloud.recs=[];
+const recView={sort:"new"};
+const recDecoded=new Map();
+async function recDeck(code){
+  if(recDecoded.has(code))return recDecoded.get(code);
+  let out;try{out={recs:await decodeGameCode(code)}}catch(e){out={err:e.message}}
+  recDecoded.set(code,out);return out;
+}
+function deckFromRecs(recs){ // 게임 코드 기록 → 도구 편성 + 줄별 정보
+  const pick={},equip={},rows=[];
+  recs.forEach(r=>{
+    const t=idNoTable(r.sinner),x=IDS.find(y=>t[y.id]===r.id)||null;
+    const lcb=IDS.find(y=>y.sinner===r.sinner&&isLcb(y));pick[r.sinner]=(x||lcb||{}).id;
+    const q={},egos=[];
+    r.ego.forEach((no,gi)=>{if(!no)return;const g=GRADES[gi],e=EGOS.find(z=>z.sinner===r.sinner&&z.grade===g&&egoNo(z)===no)||null;
+      if(e)q[g]=e.id;egos.push({g,e,name:e?e.name:(egoNameByNo(r.sinner,no)||no+"번")})});
+    equip[r.sinner]=q;
+    if(r.order>0)rows.push({sinner:r.sinner,order:r.order,x,idName:x?x.name:`${r.id}번 인격`,egos});
+  });
+  rows.sort((a,b)=>a.order-b.order);
+  const order=rows.map(r=>r.sinner);
+  let missI=0,missE=0;rows.forEach(r=>{if(!r.x||!isOwnedId(r.x))missI++;r.egos.forEach(o=>{if(!o.e||!isOwnedEgo(o.e))missE++})});
+  return {deck:{pick,order,equip,t5:{}},rows,missI,missE};
+}
+function recsInit(db){
+  db.collection("recs").onSnapshot(snap=>{cloud.recs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(r=>!r.deleted);renderRecs()},()=>{});
+}
+async function renderRecs(){
+  const box=$("#recBody");if(!box||$("#tab-recs").classList.contains("hide"))return;
+  const list=cloud.recs.slice();
+  const items=await Promise.all(list.map(async r=>{const d=await recDeck(r.code||"");return {r,d,info:d.recs?deckFromRecs(d.recs):null}}));
+  if(recView.sort==="own")items.sort((a,b)=>(a.info?a.info.missI+a.info.missE:99)-(b.info?b.info.missI+b.info.missE:99)||(b.r.updatedAt||0)-(a.r.updatedAt||0));
+  else items.sort((a,b)=>(b.r.updatedAt||0)-(a.r.updatedAt||0));
+  box.textContent="";
+  const seg=el("div",{class:"seg",role:"group","aria-label":"정렬"},...[["new","최신순"],["own","바로 쓸 수 있는 덱 먼저"]].map(([k,t])=>el("button",{class:"segb","aria-pressed":recView.sort===k?"true":"false",onclick:()=>{recView.sort=k;renderRecs()}},t)));
+  box.append(el("div",{class:"rectop"},seg,cloud.admin&&cloud.db?el("button",{class:"btn",id:"recNew",onclick:()=>openRecForm(null)},"추천 덱 올리기"):null));
+  if(!cloud.db){box.append(el("p",{class:"empty"},"추천 덱은 로그인한 상태에서 볼 수 있어요."));return}
+  if(!items.length){box.append(el("p",{class:"empty"},cloud.admin?"아직 올린 추천 덱이 없어요. '추천 덱 올리기'로 첫 덱을 올려 보세요.":"아직 올라온 추천 덱이 없어요."));return}
+  items.forEach(({r,d,info})=>box.append(recCard(r,d,info)));
+}
+function recCard(r,d,info){
+  const card=el("article",{class:"panel rec"});
+  const kws=String(r.keywords||"").split(/[,·\s]+/).filter(Boolean);
+  card.append(el("h2",{},r.name||"이름 없는 덱",info?el("small",{},info.missI+info.missE?`없는 인격 ${info.missI} · 없는 E.G.O ${info.missE}`:"모두 보유"):null));
+  const bd=el("div",{class:"an"});
+  if(kws.length)bd.append(el("div",{class:"kv"},...kws.map(k=>el("span",{class:"chip"},withIcon(k)))));
+  if(r.desc)bd.append(el("p",{class:"rdesc"},r.desc));
+  if(r.tips)bd.append(el("details",{class:"reqd"},el("summary",{},"운영 팁"),el("p",{class:"rdesc"},r.tips)));
+  if(!info)bd.append(el("p",{class:"ferr"},"이 덱의 편성 코드를 읽지 못했어요: "+(d.err||"")));
+  else bd.append(el("ul",{class:"rlist"},...info.rows.map(row=>el("li",{class:row.order<=SORTIE_MAX?"":"wait"},
+    el("span",{class:"rno"},row.order),
+    el("div",{class:"rwho"},el("b",{},row.sinner)," ",el("span",{class:!row.x?"own-n":isOwnedId(row.x)?"":"own-miss"},row.idName),!row.x?el("span",{class:"own-n"}," (데이터 없음)"):!isOwnedId(row.x)?el("span",{class:"own-miss"}," · 미보유"):null,
+      el("div",{class:"recos"},...row.egos.map(o=>el("span",{class:"echip"+(!o.e||!isOwnedEgo(o.e)?" miss":"")},el("span",{class:"gtag g-"+o.g},o.g),o.name))))))));
+  const msg=el("span",{class:"msg"});
+  bd.append(el("div",{class:"line rbtns"},
+    info?el("button",{class:"btn",onclick:()=>{applyDeck(info.deck);goTab("build");setPage(1);const m=$("#deckMsg1");m.classList.remove("hide");m.textContent=`추천 덱 '${r.name}'을 불러왔어요.`}},"내 편성으로 불러오기"):null,
+    el("button",{class:"btn ghost",onclick:()=>{const t=r.code||"";const ok=()=>msg.textContent="코드를 복사했어요.";try{navigator.clipboard.writeText(t).then(ok,()=>msg.textContent=t)}catch(e){msg.textContent=t}}},"게임 코드 복사"),
+    cloud.admin&&cloud.db?el("button",{class:"btn ghost",onclick:()=>openRecForm(r)},"수정"):null,
+    cloud.admin&&cloud.db?el("button",{class:"btn ghost",onclick:ev=>deleteRec(r,ev.currentTarget)},"삭제"):null,msg));
+  card.append(bd);return card;
+}
+function openRecForm(r){
+  const f=el("form",{class:"decks"});
+  const nm=el("input",{class:"fi",id:"recName",maxlength:"40",placeholder:"예: 화상·진동",value:r?r.name:""});
+  const kw=el("input",{class:"fi",id:"recKw",placeholder:"예: 화상, 진동",value:r?r.keywords||"":""});
+  const ds=el("textarea",{class:"fi",id:"recDesc",rows:"3",placeholder:"덱 설명"});ds.value=r?r.desc||"":"";
+  const tp=el("textarea",{class:"fi",id:"recTips",rows:"3",placeholder:"운영 팁 (선택)"});tp.value=r?r.tips||"":"";
+  const cd=el("textarea",{class:"fi",id:"recCode",rows:"3",placeholder:"게임 편성 코드 (H4sI…)",spellcheck:"false"});cd.value=r?r.code||"":"";
+  const msg=el("div",{class:"msg"});
+  const fill=el("button",{class:"btn ghost",type:"button",onclick:async()=>{if(typeof CompressionStream==="undefined"&&!window.pako){msg.textContent="이 브라우저는 코드 만들기를 지원하지 않아요.";return}
+    const {recs,probs}=stateToRecs();if(probs.length){msg.textContent="게임 번호를 모르는 항목이 있어요: "+probs.join(" / ");return}cd.value=await encodeGameCode(recs);msg.textContent="지금 편성으로 코드를 채웠어요."}},"지금 편성으로 채우기");
+  f.append(frow("이름",nm),frow("핵심 키워드",kw),frow("설명",ds),frow("운영 팁",tp),frow("편성 코드",cd),el("div",{class:"line"},fill),
+    el("div",{class:"line"},el("button",{class:"btn",type:"submit"},r?"수정 저장":"올리기"),el("button",{class:"btn ghost",type:"button",onclick:closeSheet},"취소")),msg);
+  f.addEventListener("submit",async ev=>{ev.preventDefault();
+    const name=nm.value.trim(),code=cd.value.replace(/\s+/g,"");
+    if(!name){msg.textContent="덱 이름을 입력하세요.";nm.focus();return}
+    try{await decodeGameCode(code)}catch(e){msg.textContent=e.message;cd.focus();return}
+    const id=r?r.id:"r-"+Date.now().toString(36);
+    const data={name,keywords:kw.value.trim(),desc:ds.value.trim(),tips:tp.value.trim(),code,updatedAt:Date.now(),by:cloud.uid||""};
+    try{await cloud.db.doc("recs/"+id).set(data);recDecoded.delete(code);closeSheet();
+      if(!cloud.recs.some(x=>x.id===id))cloud.recs.push({id,...data});else cloud.recs=cloud.recs.map(x=>x.id===id?{id,...data}:x);renderRecs()}
+    catch(e){msg.textContent="저장하지 못했어요. 관리자 권한과 로그인 상태를 확인해 주세요."}});
+  openSheet(r?"추천 덱 수정":"추천 덱 올리기",f);
+}
+async function deleteRec(r,btn){
+  if(btn.dataset.armed!=="1"){btn.dataset.armed="1";btn.textContent="한 번 더 눌러 삭제";return}
+  try{await cloud.db.doc("recs/"+r.id).delete();cloud.recs=cloud.recs.filter(x=>x.id!==r.id);renderRecs()}catch(e){btn.textContent="삭제 실패"}
 }
 </script>
 

@@ -6,7 +6,7 @@
 - 본 프로그램은 단일 파일 `limbus-tool.html` (현재 v0.4). 2026-11-02 GitHub로 옮기면서 버전 번호를 v0.1부터 새로 시작했다(v0.1 = 이전 번호 v3.0). 문서에 나오는 v1.x~v3.0은 이전 번호다.
 - 사이트는 claude.ai 아티팩트 공개 링크 `https://claude.ai/artifact/N4Ndtt57YxjetpMU7aSUJD` 하나로 운영한다. 새 링크를 만들지 않는다(데이터 저장소가 링크별로 따로 생김).
 - 런타임 기능(capabilities)은 그대로 유지한다:
-  `{"db":{"rules":[{"path":"identities","read":"view","write":"admin"},{"path":"egos","read":"view","write":"admin"},{"path":"drafts","read":"admin","write":"admin"},{"path":"history","read":"admin","write":"admin"}]},"sample":{},"user":{}}`
+  `{"db":{"rules":[{"path":"identities","read":"view","write":"admin"},{"path":"egos","read":"view","write":"admin"},{"path":"drafts","read":"admin","write":"admin"},{"path":"history","read":"admin","write":"admin"},{"path":"recs","read":"view","write":"admin"}]},"sample":{},"user":{}}`
 
 ## 작업 순서
 1. 요구사항을 정리해서 보여주고, 사용자가 명시적으로 승인한 뒤에 코드를 고친다.
