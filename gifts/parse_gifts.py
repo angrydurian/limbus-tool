@@ -20,11 +20,16 @@ def parse(text):
         if l.startswith("림버스UI"):i+=1;continue
         m=re.match(r'^림버스컴퍼니\s+(\S+)\s+(.+)$',l)
         if m:
-            if m.group(1)=="코스트":cur["price"]=int(re.sub(r'\D','',m.group(2)) or 0)
+            if m.group(1)=="코스트":
+                cur["price"]=int(re.sub(r'\D','',m.group(2).split("[")[0]) or 0)
+                if "구매불가" in m.group(2):cur["buyable"]=False
             elif m.group(2) in KWS:cur["keyword"]=m.group(2)
             i+=1;continue
-        if "한정" in l and sec is None:cur["source"]="한정";cur["limit"]=l;i+=1;continue
-        if "합성" in l and sec is None and len(l)<40:cur["source"]="합성";cur["limit"]=l;i+=1;continue
+        if sec is None and len(l)<40 and ("한정" in l or "합성" in l):
+            parts=[x.strip() for x in l.split(",")]
+            cur["source"]="합성" if any("합성" in x for x in parts) else "한정"
+            lim=[x for x in parts if "한정" in x];cur["limit"]=", ".join(lim) or None;i+=1;continue
+        if l=="조합식":cur["recipe"]=[x.strip() for x in lines[i+1].split("+")];i+=2;continue
         if l=="연관":cur["related"]=lines[i+1];i+=2;continue
         if l=="등급":cur["tier"]=cur["tier"] or TIERS.get(lines[i+1]);i+=2;continue
         if l=="첫 등장":cur["first"]=lines[i+1];i+=2;continue
