@@ -252,7 +252,7 @@ v2.0은 `egos` 컬렉션을 쓰므로, v2.0을 올릴 때 규칙을 아래처럼
     | 31–36 | 6 | WAW (이상 삼천대세계 = 1) | ④ |
     | 37–42 | 6 | ALEPH | 위치 추정 |
     | 43–45 | 3 | 모름 (늘 0) | |
-  - 샘플(사용자 제공, 텍스트 복사): ① 기본 12명 수감자 순 `H4sIAAAAAAAAE3MMckx3BAInT2cQ5eha7gmmQ6HCoRBht3SIcARUOB0i7B4IEU6EChdDhD0cIcKOtrYA+Btit2AAAAA=` ② ①에서 이상·파우스트 순서 교환 `H4sIAAAAAAAAE3MMdkx3BAInV2cQ5eha7gmmQ6HCoRBht3SIcARUOB0i7B4IEU6EChdDhD0cIcKOtrYAIBHZZGAAAAA=` ③ ①에서 이상 인격 변경(이름 확인 필요) `H4sIAAAAAAAAE3OpcEx3BAInT2cQ5eha7gmmQ6HCoRBht3SIcARUOB0i7B4IEU6EChdDhD0cIcKOtrYAQaLxkWAAAAA=` ④ ①에서 이상 WAW 삼천대세계 추가 `H4sIAAAAAAAAE3MMckx3BCInT2dHEHAt9wTToSBhR0enUIiwWzpEOAIqnA4Rdg+ECCdChYshwh6OEGFHW1sAiC9knGAAAAA=` ⑤ ④에서 7명만 편성 `H4sIAAAAAAAAE3MMckx3BCInT2dHEHAt9wTToSBhR0enUIiwWzpEOAIq7AhV7QgRDsQu7GhrCwAGvok8YAAAAA==`
+  - 샘플(사용자 제공, 텍스트 복사): ① 기본 12명 수감자 순 `H4sIAAAAAAAAE3MMckx3BAInT2cQ5eha7gmmQ6HCoRBht3SIcARUOB0i7B4IEU6EChdDhD0cIcKOtrYA+Btit2AAAAA=` ② ①에서 이상·파우스트 순서 교환 `H4sIAAAAAAAAE3MMdkx3BAInV2cQ5eha7gmmQ6HCoRBht3SIcARUOB0i7B4IEU6EChdDhD0cIcKOtrYAIBHZZGAAAAA=` ③ ①에서 이상 인격 변경(이름 확인 필요) `H4sIAAAAAAAAE3OpcEx3BAInT2cQ5eha7gmmQ6HCoRBht3SIcARUOB0i7B4IEU6EChdDhD0cIcKOtrYAQaLxkWAAAAA=` ④ ①에서 이상 WAW 삼천대세계 추가 `H4sIAAAAAAAAE3MMckx3BCInT2dHEHAt9wTToSBhR0enUIiwWzpEOAIqnA4Rdg+ECCdChYshwh6OEGFHW1sAiC9knGAAAAA=` ⑤ ④에서 7명만 편성 `H4sIAAAAAAAAE3MMckx3BCInT2dHEHAt9wTToSBhR0enUIiwWzpEOAIq7AhV7QgRDsQu7GhrCwAGvok8YAAAAA==` ⑥ ①을 다시 복사 → ①과 글자 하나까지 같음(코드가 매번 같게 나옴)
   - 남은 일: 인격·E.G.O "게임 번호" 규칙 확인(③의 인격 이름, TETH·HE·ALEPH 샘플), 번호를 인격·E.G.O 데이터에 칸으로 추가. 번호를 모르는 인격·E.G.O가 있으면 코드 만들기 때 알려 줌
 - **인격 데이터 입력**: 이상 2성 인격들은 사용자가 관리자 탭으로 입력 완료. 나머지 수감자 인격들 (히스클리프 위키 인격 7개는 v2.7에서 삭제됨 → 게임 캡처로 새로 입력)
 - **비로그인 공유용 스냅샷**: db에 있는 인격을 페이지 내장 데이터로 반영 (업데이트 시 함께)
