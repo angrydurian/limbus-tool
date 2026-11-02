@@ -25,9 +25,9 @@
   {
    "name": "불꽃의 편린",
    "tier": "Ⅳ",
-   "keyword": null,
-   "price": null,
-   "source": null,
+   "keyword": "화상",
+   "price": 379,
+   "source": "통상",
    "limit": null,
    "related": "불명",
    "first": "거울의 거울 (거울 던전 2)",
@@ -46,11 +46,7 @@
      "불꽃의 편린 효과로 소모한 화상 횟수만큼, 다음 턴 동안 대상의 방어 레벨 감소 (최대 8)"
     ]
    },
-   "missing": [
-    "keyword",
-    "price",
-    "source"
-   ]
+   "missing": []
   }
  ]
 }
