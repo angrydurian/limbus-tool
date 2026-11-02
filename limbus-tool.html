@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>림버스 편성 도구 v0.3</title>
+<title>림버스 편성 도구 v0.4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
@@ -260,6 +260,25 @@ button.cell:hover{background:var(--panel2)}
 .kwchip:hover{border-color:var(--ink)}
 .kwuse .dbtn{border-top:0;padding:2px 0}
 #gcIn{flex:1;min-width:0}
+/* v0.4: 내 보유 */
+.ototal{font:700 15px var(--serif);margin:6px 0 10px}
+.osum{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px}
+.osb{display:flex;flex-direction:column;gap:1px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:7px 10px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.osb b{font:700 14px var(--serif);color:var(--ink)}
+.osb[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.ogrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:860px){.ogrid{grid-template-columns:minmax(0,1fr)}}
+.olist{display:flex;flex-direction:column}
+.orow{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px dashed var(--line)}
+.orow:first-child{border-top:0}
+.ochk{flex:0 0 auto;min-width:58px;font-size:12px;font-weight:600;border:1px solid var(--line);border-radius:4px;padding:4px 8px;background:var(--panel2);color:var(--muted)}
+.ochk[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.oname{flex:1;min-width:0}.oname .n{font-weight:600;font-size:14px}.oname .r{font-size:12px;color:var(--muted)}
+.orow:not(.on) .oname{opacity:.6}
+.osel,.decks .osel{flex:0 0 auto;width:auto;padding:4px 6px;font-size:13px}
+.ownsw{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink);cursor:pointer}
+.ownsw input{width:16px;height:16px;accent-color:var(--accent)}
+.own-y{font-size:11.5px;font-weight:600;color:var(--gluttony)}.own-n{font-size:11.5px;color:var(--muted)}
 #kwSearch{flex:none}
 #gcOut{width:100%;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
 .hide{display:none!important}
@@ -271,12 +290,13 @@ button.cell:hover{background:var(--panel2)}
   <header class="top">
     <div>
       <h1>림버스 편성 도구</h1>
-      <div class="ver">v0.3 · 출격 7명 · 대기 5명 · 4동기화 · E.G.O 4해석 기준 · <span id="syncState">이 기기에만 저장</span></div>
+      <div class="ver">v0.4 · 출격 7명 · 대기 5명 · 4동기화 · E.G.O 4해석 기준 · <span id="syncState">이 기기에만 저장</span></div>
     </div>
     <nav class="tabs" role="tablist">
       <button role="tab" aria-selected="true" data-tab="home">홈</button>
       <button role="tab" aria-selected="false" data-tab="build">편성</button>
       <button role="tab" aria-selected="false" data-tab="data">인격 데이터</button>
+      <button role="tab" aria-selected="false" data-tab="own">내 보유</button>
       <button role="tab" aria-selected="false" data-tab="admin" id="adminTab" class="hide">관리자</button>
     </nav>
   </header>
@@ -287,6 +307,7 @@ button.cell:hover{background:var(--panel2)}
       <button class="hbtn" data-home="build"><span class="ht">편성</span><span class="hd">인격 → E.G.O → 최종본 3단계로 12명을 짜요. 게임 편성 코드를 불러오고 만들 수 있어요.</span></button>
       <button class="hbtn" data-home="data"><span class="ht">인격 데이터</span><span class="hd">수감자·죄악·키워드·등급으로 인격을 찾아 스킬과 패시브를 봐요.</span></button>
       <button class="hbtn" data-home="keywords"><span class="ht">키워드 <small id="homeKwCount"></small></span><span class="hd">기본·범용·고유 키워드 설명과, 그 키워드를 쓰는 인격·E.G.O 목록을 봐요.</span></button>
+      <button class="hbtn" data-home="own"><span class="ht">내 보유</span><span class="hd">가진 인격·E.G.O를 체크하고 동기화·해석 단계를 적어요. 편성할 때 보유한 것만 골라 볼 수 있어요.</span></button>
       <button class="hbtn hide" id="homeAdmin" data-home="admin"><span class="ht">관리자</span><span class="hd">캡처를 데이터로 바꾸고 인격·E.G.O를 입력해요.</span></button>
     </div>
     <p class="note">스킬·패시브 설명의 키워드는 PC에서는 마우스를 올리면, 휴대폰에서는 누르면 설명이 떠요.</p>
@@ -365,6 +386,7 @@ button.cell:hover{background:var(--panel2)}
     <div class="cards" id="cards"></div>
   </section>
 
+<section id="tab-own" class="hide"><div id="ownBody" style="margin-top:14px"></div></section>
 <section id="tab-admin" class="hide"><div class="side" id="adminBody" style="margin-top:18px;max-width:760px"></div></section>
 </div>
 <div class="sheet-bg" id="sheetBg"></div>
@@ -496,18 +518,18 @@ function openPicker(name){
   function draw(){
     list.textContent="";
     const qq=pickerF.q.toLowerCase();
-    const res=mine.filter(x=>(!qq||x.name.toLowerCase().includes(qq))&&(!pickerF.r||String(x.rarity)===pickerF.r)&&(!pickerF.k||x.keywords.includes(pickerF.k)))
+    const res=mine.filter(x=>(!qq||x.name.toLowerCase().includes(qq))&&(!pickerF.r||String(x.rarity)===pickerF.r)&&(!pickerF.k||x.keywords.includes(pickerF.k))&&(!ownView.only||isOwnedId(x)||state.pick[name]===x.id))
       .sort(byRelease);
-    if(!res.length){list.append(el("p",{class:"empty"},"조건에 맞는 인격이 없어요."));return}
+    if(!res.length){list.append(el("p",{class:"empty"},ownView.only?"조건에 맞는 보유 인격이 없어요. '보유만 보기'를 끄면 전체가 보여요.":"조건에 맞는 인격이 없어요."));return}
     res.forEach(x=>{
       const tiles=el("div",{class:"tiles"});x.skills.filter(s=>/^S[123]$/.test(s.slot)).forEach(s=>tiles.append(sinTile(s.sin,s.slot.slice(1),s.slot==="S3")));
       list.append(el("button",{class:"opt","aria-pressed":state.pick[name]===x.id?"true":"false",onclick:()=>choose(x)},
-        el("div",{class:"r"},RAR[x.rarity]+" · "+(x.season==="통상"?"통상":"시즌 "+x.season)),el("div",{class:"n"},x.name),tiles,
+        el("div",{class:"r"},RAR[x.rarity]+" · "+(x.season==="통상"?"통상":"시즌 "+x.season)+" · ",isOwnedId(x)?el("span",{class:"own-y"},`보유 ${idLevel(x)}동기화`):el("span",{class:"own-n"},"미보유")),el("div",{class:"n"},x.name),tiles,
         el("div",{class:"r"},x.keywords.length?"키워드: ":"키워드 없음",...x.keywords.flatMap((k,i)=>i?[", ",withIcon(k)]:[withIcon(k)]))));
     });
   }
   function choose(x){state.pick[name]=x.id;closeSheet();renderRows()}
-  body.append(el("div",{class:"pfilters"},q,el("div",{class:"line",style:"display:flex;gap:6px;flex-wrap:wrap;align-items:center"},rbar,ksel)),list);
+  body.append(el("div",{class:"pfilters"},q,el("div",{class:"line",style:"display:flex;gap:6px;flex-wrap:wrap;align-items:center"},rbar,ksel,ownSwitch(()=>draw()))),list);
   if(state.pick[name])body.append(el("button",{class:"btn ghost",style:"margin-top:8px",onclick:()=>{delete state.pick[name];const i=state.order.indexOf(name);if(i>=0)state.order.splice(i,1);closeSheet();renderRows()}},"선택 해제"));
   draw();openSheet(name+" 인격 선택",body);
   if(!window.matchMedia("(max-width:860px)").matches)setTimeout(()=>q.focus(),0);
@@ -640,15 +662,16 @@ function egoDetail(e,lvl,setLvl){
   return f;
 }
 function openEgoPick(s,g,keep){
-  const q=eqOf(s),cur=q[g],list=egosOf(s,g),body=el("div");
-  body.append(el("p",{class:"note",style:"margin:0 0 10px"},!list.length?"이 등급의 E.G.O 데이터가 아직 없어요.":g==="ZAYIN"?"ZAYIN은 항상 하나가 장착돼 있어야 해요. 누르면 바로 장착돼요.":"누르면 바로 장착돼요."));
+  const q=eqOf(s),cur=q[g],all=egosOf(s,g),list=all.filter(e=>!ownView.only||isOwnedEgo(e)||cur===e.id),body=el("div");
+  body.append(el("div",{style:"margin-bottom:8px"},ownSwitch(()=>openEgoPick(s,g,true))));
+  body.append(el("p",{class:"note",style:"margin:0 0 10px"},!all.length?"이 등급의 E.G.O 데이터가 아직 없어요.":!list.length?"이 등급에 보유한 E.G.O가 없어요. '보유만 보기'를 끄면 전체가 보여요.":g==="ZAYIN"?"ZAYIN은 항상 하나가 장착돼 있어야 해요. 누르면 바로 장착돼요.":"누르면 바로 장착돼요."));
   list.forEach(e=>{
     const box=el("div",{class:"obox","data-on":cur===e.id?"true":"false"}),det=el("div",{class:"det hide"});
     let lvl=state.t5[e.id]?5:4;
     const draw=()=>{det.textContent="";det.append(egoDetail(e,lvl,v=>{lvl=v;draw()}))};
     const dbtn=el("button",{class:"dbtn","aria-expanded":"false",onclick:()=>{const open=det.classList.toggle("hide")===false;dbtn.setAttribute("aria-expanded",open?"true":"false");dbtn.textContent=open?"자세히 접기 ▴":"자세히 ▾";if(open)draw()}},"자세히 ▾");
     box.append(el("button",{class:"opt","aria-pressed":cur===e.id?"true":"false",onclick:()=>{q[g]=e.id;closeSheet();renderRows()}},
-      el("div",{class:"n"},e.name,e.base?" (고유)":""),
+      el("div",{class:"n"},e.name,e.base?" (고유)":"",isOwnedEgo(e)?el("span",{class:"own-y"},` 보유 ${egoLevel(e)}해석`):el("span",{class:"own-n"}," 미보유")),
       el("div",{class:"r ekv"},el("span",{},"비용 ",...costView(e)),e.awaken?el("span",{},"각성 ",icon(e.awaken.sin),icon(e.awaken.type)):null,e.t5?el("span",{},"5해석 가능"):null)),dbtn,det);
     body.append(box);
   });
@@ -876,6 +899,7 @@ document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>{
       else{const local=readDecks();deckCache=local;if(Object.keys(local).length)await db.doc(`data/users/${cloud.uid}/decks`).set({decks:local})}
       refreshDeckList();
     }catch(e){$("#syncState").textContent="동기화 연결 실패 · 이 기기에만 저장"}
+    if(typeof ownCloudInit==="function")ownCloudInit(); // v0.4: 보유 정보 동기화
   }
   if(db){
     db.collection("identities").onSnapshot(snap=>{const o={};snap.docs.forEach(d=>o[d.id]=d.data());cloud.overlay=o;rebuildData()},()=>{});
@@ -1666,9 +1690,10 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&kwTipFor)hideKwTip(
 /* ---------- 홈 · 탭 ---------- */
 function goTab(t){
   document.querySelectorAll("nav.tabs button").forEach(x=>x.setAttribute("aria-selected",x.dataset.tab===t?"true":"false"));
-  ["home","build","data","admin"].forEach(k=>$("#tab-"+k).classList.toggle("hide",k!==t));
+  ["home","build","data","own","admin"].forEach(k=>$("#tab-"+k).classList.toggle("hide",k!==t));
   $("#v2notice").classList.toggle("hide",t!=="build");
   if(t==="admin")renderAdmin();
+  if(t==="own"&&typeof renderOwn==="function")renderOwn();
 }
 document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>goTab(b.dataset.tab));
 document.querySelectorAll("[data-home]").forEach(b=>b.addEventListener("click",()=>{const t=b.dataset.home;if(t==="keywords")openKeywords();else goTab(t)}));
@@ -1677,6 +1702,65 @@ const homeAdmin=new MutationObserver(()=>$("#homeAdmin").classList.toggle("hide"
 homeAdmin.observe($("#adminTab"),{attributes:true,attributeFilter:["class"]});
 $("#gcLoad").onclick=importGameCode;$("#gcMake").onclick=exportGameCode;$("#gcCopy").onclick=copyGameCode;
 goTab("home");
+</script>
+
+<script>
+/* ================= v0.4: 내 보유 (인격·E.G.O 보유 체크, 동기화·해석 단계) =================
+   own = {ids:{인격id: 동기화 1~4 (0 = 미보유)}, egos:{egoId: 해석 4|5 (0 = 미보유)}}
+   기록이 없으면 기본 인격(LCB)·기본 ZAYIN E.G.O만 보유(4)로 봄. 로그인하면 data/users/{uid}/owned에 동기화 */
+const OWN_KEY="limbus-v0-owned";
+let own=(()=>{try{const o=JSON.parse(localStorage.getItem(OWN_KEY)||"{}");return {ids:o.ids||{},egos:o.egos||{}}}catch(e){return {ids:{},egos:{}}}})();
+let ownChain=Promise.resolve(),ownSynced=false;
+const ownView={sinner:SINNERS[0],only:(()=>{try{return localStorage.getItem(OWN_KEY+":only")==="1"}catch(e){return false}})()};
+const idLevel=x=>x.id in own.ids?own.ids[x.id]:(isLcb(x)?4:0);
+const egoLevel=e=>e.id in own.egos?own.egos[e.id]:(e.base?4:0);
+const isOwnedId=x=>idLevel(x)>0,isOwnedEgo=e=>egoLevel(e)>0;
+function saveOwn(){
+  try{localStorage.setItem(OWN_KEY,JSON.stringify(own))}catch(e){}
+  if(cloud.db&&cloud.uid){const ref=cloud.db.doc(`data/users/${cloud.uid}/owned`),snap=JSON.parse(JSON.stringify(own));
+    ownChain=ownChain.then(()=>ref.set({owned:snap})).catch(()=>{const m=$("#ownSync");if(m)m.textContent="동기화 저장에 실패했어요. 이 기기에는 남아 있어요."})}
+}
+async function ownCloudInit(){
+  if(!cloud.db||!cloud.uid)return;
+  try{const ref=cloud.db.doc(`data/users/${cloud.uid}/owned`),snap=await ref.get();
+    if(snap.exists){const o=(snap.data()||{}).owned||{};own={ids:o.ids||{},egos:o.egos||{}};try{localStorage.setItem(OWN_KEY,JSON.stringify(own))}catch(e){}}
+    else if(Object.keys(own.ids).length||Object.keys(own.egos).length)await ref.set({owned:own});
+    ownSynced=true;if(!$("#tab-own").classList.contains("hide"))renderOwn();
+  }catch(e){}
+}
+const setOnlyOwned=v=>{ownView.only=v;try{localStorage.setItem(OWN_KEY+":only",v?"1":"0")}catch(e){}};
+const ownSwitch=onchange=>el("label",{class:"ownsw"},el("input",{type:"checkbox",id:"ownOnly",...(ownView.only?{checked:""}:{}),onchange:e=>{setOnlyOwned(e.target.checked);onchange()}}),"보유만 보기");
+const idsOf=s=>IDS.filter(x=>x.sinner===s).sort(byRelease);
+const egosAll=s=>EGOS.filter(e=>e.sinner===s).sort(egoSort);
+function ownCount(s){const i=idsOf(s),e=egosAll(s);return {ih:i.filter(isOwnedId).length,it:i.length,eh:e.filter(isOwnedEgo).length,et:e.length}}
+function setIdLevel(x,v){own.ids[x.id]=v;saveOwn();renderOwn()}
+function setEgoLevel(e,v){own.egos[e.id]=v;saveOwn();renderOwn()}
+function ownRow(owned,label,sub,onToggle,levelCtl){
+  return el("div",{class:"orow"+(owned?" on":"")},
+    el("button",{class:"ochk","aria-pressed":owned?"true":"false","aria-label":label+(owned?" 보유, 누르면 미보유로":" 미보유, 누르면 보유로"),onclick:onToggle},owned?"보유":"미보유"),
+    el("div",{class:"oname"},el("div",{class:"n"},label),el("div",{class:"r"},sub)),owned?levelCtl:null);
+}
+function renderOwn(){
+  const box=$("#ownBody");box.textContent="";
+  const s=ownView.sinner;
+  box.append(el("p",{class:"note",id:"ownSync"},cloud.db&&cloud.uid?(ownSynced?"보유 정보는 기기 간 동기화돼요.":"동기화 연결 중…"):"보유 정보는 이 기기의 브라우저에만 남아요. 로그인하면 기기 간 동기화돼요.",
+    " 기본 인격과 기본 ZAYIN E.G.O는 처음부터 보유로 표시돼요."));
+  const tot=SINNERS.map(ownCount).reduce((a,c)=>({ih:a.ih+c.ih,it:a.it+c.it,eh:a.eh+c.eh,et:a.et+c.et}),{ih:0,it:0,eh:0,et:0});
+  box.append(el("div",{class:"ototal"},`전체 인격 ${tot.ih}/${tot.it} · E.G.O ${tot.eh}/${tot.et}`));
+  box.append(el("div",{class:"osum",role:"group","aria-label":"수감자"},...SINNERS.map(n=>{const c=ownCount(n);
+    return el("button",{class:"osb","aria-pressed":n===s?"true":"false",onclick:()=>{ownView.sinner=n;renderOwn()}},el("b",{},n),el("span",{},`인격 ${c.ih}/${c.it}`),el("span",{},`E.G.O ${c.eh}/${c.et}`))})));
+  const ids=idsOf(s),egos=egosAll(s),c=ownCount(s);
+  const bulk=(onAll,onNone)=>el("div",{class:"line",style:"display:flex;gap:6px;flex-wrap:wrap"},el("button",{class:"btn ghost",onclick:onAll},"모두 보유"),el("button",{class:"btn ghost",onclick:onNone},"모두 미보유"));
+  const syncSel=x=>{const sel=el("select",{class:"fi osel","aria-label":x.name+" 동기화 단계",onchange:e=>setIdLevel(x,+e.target.value)},...[1,2,3,4].map(v=>el("option",{value:v,...(idLevel(x)===v?{selected:""}:{})},v+"동기화")));return sel};
+  const t5Sel=e=>e.t5?el("select",{class:"fi osel","aria-label":e.name+" 해석 단계",onchange:ev=>setEgoLevel(e,+ev.target.value)},...[4,5].map(v=>el("option",{value:v,...(egoLevel(e)===v?{selected:""}:{})},v+"해석"))):el("span",{class:"r"},"4해석");
+  const idPanel=el("div",{class:"panel"},el("h2",{},`${s} 인격`,el("small",{},`보유 ${c.ih}/${c.it}`)),
+    el("div",{class:"decks"},bulk(()=>{ids.forEach(x=>{if(!isOwnedId(x))own.ids[x.id]=4});saveOwn();renderOwn()},()=>{ids.forEach(x=>own.ids[x.id]=0);saveOwn();renderOwn()}),
+      ids.length?el("div",{class:"olist"},...ids.map(x=>ownRow(isOwnedId(x),x.name,`${RAR[x.rarity]} · ${x.release||"출시일 없음"}`,()=>setIdLevel(x,isOwnedId(x)?0:4),syncSel(x)))):el("p",{class:"empty"},"이 수감자의 인격 데이터가 아직 없어요.")));
+  const egoPanel=el("div",{class:"panel"},el("h2",{},`${s} E.G.O`,el("small",{},`보유 ${c.eh}/${c.et}`)),
+    el("div",{class:"decks"},bulk(()=>{egos.forEach(e=>{if(!isOwnedEgo(e))own.egos[e.id]=4});saveOwn();renderOwn()},()=>{egos.forEach(e=>own.egos[e.id]=0);saveOwn();renderOwn()}),
+      egos.length?el("div",{class:"olist"},...egos.map(e=>ownRow(isOwnedEgo(e),e.name+(e.base?" (기본)":""),el("span",{},el("span",{class:"gtag g-"+e.grade},e.grade)),()=>setEgoLevel(e,isOwnedEgo(e)?0:4),t5Sel(e)))):el("p",{class:"empty"},"이 수감자의 E.G.O 데이터가 아직 없어요.")));
+  box.append(el("div",{class:"grid ogrid"},idPanel,egoPanel));
+}
 </script>
 
 </body>
