@@ -21,9 +21,7 @@ for src,name in zip(args[::2],args[1::2]):
             c=px[x,y];mx,mn=max(c),min(c)
             if (mx>110 and mx-mn>60) or mn>200:n+=1
         return n>(sep-10)*0.6
-    bottom=h
-    for y in range(h-1,h//2,-1):
-        if not redrow(y):bottom=y+1;break
+    bottom=next((y for y in range(h//2,h) if redrow(y)),h)  # 위에서부터 처음 만나는 색 띠 = 아이콘 칸 끝
     side=sep-2-8
     top=max(0,bottom-side-4)
     crop=im.crop((8,top,sep-2,bottom-4))
