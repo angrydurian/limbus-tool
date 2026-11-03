@@ -556,6 +556,24 @@
    "icon": "g019.png"
   },
   {
+   "name": "빛바랜 외투",
+   "tier": "Ⅱ",
+   "keyword": "침잠",
+   "price": 209,
+   "source": "한정",
+   "limit": "하드 난이도 한정",
+   "related": "불명",
+   "first": "꿈결의 거울 (거울 던전 5)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "턴 종료 시 정신력이 -45인 적이 3명 이상이면, 다음 턴에 모든 아군이 공격 레벨 증가 2 얻음"
+    ],
+    "plus": [],
+    "plus2": []
+   }
+  },
+  {
    "name": "상처붙이",
    "tier": "Ⅱ",
    "keyword": "출혈",
