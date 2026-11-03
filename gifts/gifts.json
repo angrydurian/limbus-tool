@@ -691,6 +691,24 @@
    "icon": "g051.png"
   },
   {
+   "name": "종말의 파편",
+   "tier": "Ⅱ",
+   "keyword": "파열",
+   "price": 200,
+   "source": "한정",
+   "limit": "하드 난이도 한정",
+   "related": "환상체: 종말 달력",
+   "first": "꿈결의 거울 (거울 던전 5)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "대상의 파열 위력이 15 미만이면, 파열 위력 부여 시 추가 1 부여"
+    ],
+    "plus": [],
+    "plus2": []
+   }
+  },
+  {
    "name": "지옥나비의 꿈",
    "tier": "Ⅱ",
    "keyword": "화상",
