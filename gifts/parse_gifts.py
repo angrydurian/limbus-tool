@@ -29,7 +29,7 @@ def parse(text):
             parts=[x.strip() for x in l.split(",")]
             cur["source"]="합성" if any("합성" in x for x in parts) else "한정"
             lim=[x for x in parts if "한정" in x];cur["limit"]=", ".join(lim) or None;i+=1;continue
-        if l=="조합식":cur["recipe"]=[x.strip() for x in lines[i+1].split("+")];i+=2;continue
+        if l=="조합식":cur["recipe"]=[x.strip() for x in re.sub(r"\([^)]*\)","",lines[i+1]).split("+")];i+=2;continue  # 괄호 안 하위 재료는 뺌
         if l=="연관":cur["related"]=lines[i+1];i+=2;continue
         if l=="등급":cur["tier"]=cur["tier"] or TIERS.get(lines[i+1]);i+=2;continue
         if l=="첫 등장":cur["first"]=lines[i+1];i+=2;continue
