@@ -24,7 +24,9 @@ for src,name in zip(args[::2],args[1::2]):
     bottom=next((y for y in range(h//2,h) if redrow(y)),h)  # 위에서부터 처음 만나는 색 띠 = 아이콘 칸 끝
     side=sep-2-8
     top=max(0,bottom-side-4)
-    crop=im.crop((8,top,sep-2,bottom-4))
+    # 왼쪽 끝: 흰 여백이 끝나는 곳(여백이 없으면 0)부터. 남은 흰 줄·갈색 테두리는 아래에서 깎음
+    left=next((x for x in range(0,40) if min(px[x,(top+bottom)//2])<200),0)
+    crop=im.crop((left,top,sep-2,bottom-4))
     # 가장자리의 흰 여백·갈색 테두리 줄은 깎아냄
     c=crop.load();cw,ch=crop.size
     edge=lambda pts:sum(1 for q in pts if sum(c[q])>450 or (c[q][0]>140 and 70<c[q][1]<150 and c[q][2]<100))>len(pts)*0.6
