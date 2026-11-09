@@ -25,6 +25,8 @@ def parse(text):
                 if "구매불가" in m.group(2):cur["buyable"]=False
             elif m.group(2) in KWS:cur["keyword"]=m.group(2)
             i+=1;continue
+        if sec is None and len(l)<60 and "전용" in l and not l.startswith("["):  # 예: "○○ 팩 전용", "A 팩, B 팩 전용"
+            cur["pack"]=[re.sub(r"\s*전용.*$","",x).strip() for x in l.split(",") if x.strip()];i+=1;continue
         if sec is None and len(l)<40 and ("한정" in l or "합성" in l):
             parts=[x.strip() for x in l.split(",")]
             cur["source"]="합성" if any("합성" in x for x in parts) else "한정"

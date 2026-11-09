@@ -1,5 +1,5 @@
 {
- "about": "림버스 컴퍼니 거울 던전 E.G.O 기프트. 출처: 나무위키(글자 복사). tier: Ⅰ~Ⅴ·EX, keyword: 하나(화상·출혈·진동·파열·침잠·호흡·충전·참격·관통·타격) 또는 null(키워드 없음), source: 통상/합성/한정, limit: 한정 조건(팩 이름·난이도), price: 상점 가격, upgrade: 강화 가능 여부, effects: {base, plus, plus2}, missing: 아직 못 받은 칸",
+ "about": "림버스 컴퍼니 거울 던전 E.G.O 기프트. 출처: 나무위키(글자 복사). tier: Ⅰ~Ⅴ·EX, keyword: 하나(화상·출혈·진동·파열·침잠·호흡·충전·참격·관통·타격) 또는 null(키워드 없음), source: 통상/합성/한정, limit: 한정 조건(난이도 등), pack: 전용 팩 이름 목록(팩 전용 기프트만, 기본 키워드 목록에도 같이 들어감), price: 상점 가격, upgrade: 강화 가능 여부, effects: {base, plus, plus2}, missing: 아직 못 받은 칸",
  "gifts": [
   {
    "name": "가시밭길",

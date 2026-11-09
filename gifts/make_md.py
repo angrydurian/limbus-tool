@@ -17,6 +17,7 @@ for k in KW:
         out.append("")
         if g.get("icon"):out+=[f"![{g['name']}](icons/{g['icon']})",""]
         out.append(f"- 가격: {price} · 획득: {src} · 강화: {'가능' if g.get('upgrade') else '불가'}")
+        if g.get("pack"):out.append(f"- 전용 팩: {', '.join(g['pack'])}")
         if g.get("recipe"):out.append(f"- 조합식: {' + '.join(g['recipe'])}")
         meta=[x for x in (g.get("related") and f"연관: {g['related']}", g.get("first") and f"첫 등장: {g['first']}") if x]
         if meta:out.append("- "+" · ".join(meta))
@@ -26,5 +27,13 @@ for k in KW:
             if e.get(key):
                 out.append(f"**{lab}**");out.append("")
                 out+=[f"- {l}" for l in e[key]];out.append("")
+packs={}
+for g in d:
+    for pk in g.get("pack") or []:packs.setdefault(pk,[]).append(g)
+if packs:
+    out+=["## 팩 전용 기프트","","(위 키워드 목록에도 같이 들어 있음)",""]
+    for pk in sorted(packs):
+        gs=sorted(packs[pk],key=lambda g:(TI.index(g.get("tier") or "EX"),g["name"]))
+        out+=[f"### {pk} ({len(gs)})",""]+[f"- {g['tier']} {g['name']} ({g['keyword'] or '키워드 없음'})" for g in gs]+[""]
 open("gifts/gifts.md","w",encoding="utf8").write("\n".join(out))
 print(len(out),"lines")
