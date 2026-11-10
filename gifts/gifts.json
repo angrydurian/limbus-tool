@@ -450,7 +450,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g186.png"
   },
   {
    "name": "보석 진동자",
@@ -1296,7 +1297,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g184.png"
   },
   {
    "name": "꿈을 꾸는 전기양",
@@ -2421,7 +2423,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g182.png"
   },
   {
    "name": "포켓 암기 노트",
@@ -2535,7 +2538,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g183.png"
   },
   {
    "name": "휴대용 전지 소켓",
@@ -2861,7 +2865,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g185.png"
   },
   {
    "name": "리뉴얼 굿즈",
