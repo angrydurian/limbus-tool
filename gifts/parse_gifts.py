@@ -23,6 +23,8 @@ def parse(text):
             if m.group(1)=="코스트":
                 cur["price"]=int(re.sub(r'\D','',m.group(2).split("[")[0]) or 0)
                 if "구매불가" in m.group(2):cur["buyable"]=False
+                nt=[x for x in re.findall(r"\[([^\]]+)\]",m.group(2)) if x not in("구매불가","EX")]
+                if nt:cur["price_note"]=", ".join(nt)  # 예: [선택지전용]
             elif m.group(2) in KWS:cur["keyword"]=m.group(2)
             i+=1;continue
         if sec is None and len(l)<60 and "전용" in l and not l.startswith("["):  # 예: "○○ 팩 전용", "A 팩, B 팩 전용"

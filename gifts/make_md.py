@@ -12,7 +12,7 @@ for k in KW:
     out+=[f"## {k or '키워드 없음'} ({len(gs)})",""]
     for g in gs:
         src=g["source"]+(f" · {g['limit']}" if g.get("limit") else "")
-        price=f"{g['price']}"+(" (구매불가)" if g.get("buyable") is False else "")
+        price=f"{g['price']}"+(" (구매불가)" if g.get("buyable") is False else "")+(f" ({g['price_note']})" if g.get("price_note") else "")
         out.append(f"### {g['tier']} {g['name']}")
         out.append("")
         if g.get("icon"):out+=[f"![{g['name']}](icons/{g['icon']})",""]

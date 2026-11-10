@@ -4276,6 +4276,24 @@
    "icon": "g029.png"
   },
   {
+   "name": "확률과 선택",
+   "tier": "Ⅳ",
+   "price": 396,
+   "source": "통상",
+   "related": "환상체: 되풀이되는 믿음과 약속",
+   "first": "이름과 거미의 거울 (거울 던전 7)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "가장 왼쪽 슬롯에 등록한 E.G.O 스킬의 피해량이 -50%나 +150% 중 랜덤하게 적용 (턴당 1회)"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "price_note": "선택지전용",
+   "keyword": null
+  },
+  {
    "name": "황홀경",
    "tier": "Ⅳ",
    "keyword": "파열",
