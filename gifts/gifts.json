@@ -615,7 +615,8 @@
     "condition": "전투를 6회 승리할 시",
     "pair": "황금빛 시간"
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g211.png"
   },
   {
    "name": "뼈 말뚝",
@@ -3865,7 +3866,8 @@
     "type": "축복",
     "pair": "빛바랜 건틀릿"
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g212.png"
   },
   {
    "name": "휴대용 구급상자",
