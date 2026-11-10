@@ -19,6 +19,7 @@ for k in KW:
         out.append(f"- 가격: {price} · 획득: {src} · 강화: {'가능' if g.get('upgrade') else '불가'}")
         c=g.get("curse")
         if c:out.append(f"- {c['type']} 기프트"+(f" → 축복: {c.get('pair','(짝 미정)')}"+(f" (조건: {c['condition']})" if c.get('condition') else "") if c['type']=="저주" else f" ← 저주: {c.get('pair','(짝 미정)')}"))
+        if g.get("hidden"):out.append("- 히든 보스 기프트 (익스트림 난이도 히든 보스에서만 획득)"+"".join(f" · {k}: {g['hidden'][k]}" for k in ("season","boss") if g["hidden"].get(k)))
         if g.get("pack"):out.append(f"- 전용 팩: {', '.join(g['pack'])}")
         if g.get("recipe"):out.append(f"- 조합식{('['+g['recipe_note']+']') if g.get('recipe_note') else ''}: {' + '.join(g['recipe'])}")
         if g.get("recipe_detail"):out.append(f"  - {g['recipe_detail']}")
@@ -31,6 +32,12 @@ for k in KW:
             if e.get(key):
                 out.append(f"**{lab}**");out.append("")
                 out+=[f"- {l}" for l in e[key]];out.append("")
+        if g.get("hidden"):
+            out+=["**시즌 지난 뒤 (약화)**",""]+[f"- {l}" for l in g["hidden"]["weakened"]]+[""]
+hid=[g for g in d if g.get("hidden")]
+if hid:
+    out+=["## 히든 보스 기프트","","익스트림 난이도 히든 보스에서만 획득. 시즌이 바뀌면 공통 코인 위력 줄이 빠진 약화 버전이 됨 (위 목록에도 같이 들어 있음)",""]
+    out+=[f"- {g['tier']} {g['name']} ({g['keyword'] or '키워드 없음'})"+(f" · 시즌: {g['hidden']['season']}" if g['hidden'].get('season') else "") for g in sorted(hid,key=lambda g:(TI.index(g.get("tier") or "EX"),g["name"]))]+[""]
 cur=[g for g in d if (g.get("curse") or {}).get("type")=="저주"]
 if cur:
     out+=["## 저주 → 축복 기프트","","저주 기프트를 가진 채로 조건을 채우면 축복 기프트로 바뀜 (위 목록에도 같이 들어 있음)",""]

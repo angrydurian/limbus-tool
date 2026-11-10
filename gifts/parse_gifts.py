@@ -64,6 +64,9 @@ def parse(text):
         if c and c["type"]=="저주":
             for e in g["effects"]["base"]:
                 if "기프트가 변경" in e:c["condition"]=re.sub(r"\s*해당 E\.G\.O 기프트가 변경됨\.?$","",e).strip()
+    for g in out:  # 히든 보스 기프트: 시즌이 지나면 공통 코인 위력 줄만 빠진 약화 버전이 됨
+        if "히든" in (g.get("price_note") or ""):
+            g["hidden"]={"weakened":[e for e in g["effects"]["base"] if not re.search(r"코인 위력 \+\(8\s*/\s*코인 수\)",e)]}
     for g in out:  # +/++ 효과가 있으면 강화 가능으로 봄(나무위키 "강화 여부" 칸 오타 대비)
         if g["effects"]["plus"] and g["upgrade"] is False:g["upgrade"]=True;g["note_fix"]="강화 여부 칸은 '불가'였지만 +/++ 효과가 있어 가능으로 저장"
     return out
