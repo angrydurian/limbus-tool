@@ -2403,7 +2403,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g177.png"
   },
   {
    "name": "특별 카탈로그",
@@ -2466,7 +2467,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g178.png"
   },
   {
    "name": "해진 우산",
@@ -2797,7 +2799,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g179.png"
   },
   {
    "name": "녹슨 커터 나이프",
@@ -3230,7 +3233,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g181.png"
   },
   {
    "name": "연기와 철조망",
@@ -4737,7 +4741,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g180.png"
   }
  ]
 }
