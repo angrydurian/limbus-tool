@@ -72,6 +72,31 @@
    "icon": "g147.png"
   },
   {
+   "name": "귀기 서린 환도",
+   "tier": "Ⅰ",
+   "price": 149,
+   "source": "한정",
+   "limit": "하드 난이도 한정",
+   "related": "집단: 검계",
+   "first": "이름과 거미의 거울 (거울 던전 7)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "전투를 6회 승리할 시 해당 E.G.O 기프트가 변경됨",
+     "모든 아군이 받는 피해 20% 증가, 합 위력 -1"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "price_note": "저주&축복",
+   "curse": {
+    "type": "저주",
+    "condition": "전투를 6회 승리할 시",
+    "pair": "신검합일"
+   },
+   "keyword": null
+  },
+  {
    "name": "그날의 기록",
    "tier": "Ⅰ",
    "price": 149,
@@ -3263,6 +3288,29 @@
    },
    "keyword": null,
    "icon": "g202.png"
+  },
+  {
+   "name": "신검합일",
+   "tier": "Ⅲ",
+   "price": 250,
+   "source": "한정",
+   "limit": "하드 난이도 한정",
+   "related": "집단: 검계",
+   "first": "이름과 거미의 거울 (거울 던전 7)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "모든 아군이 가하는 피해 25% 증가"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "price_note": "저주&축복",
+   "curse": {
+    "type": "축복",
+    "pair": "귀기 서린 환도"
+   },
+   "keyword": null
   },
   {
    "name": "안식처",
