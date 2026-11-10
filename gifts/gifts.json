@@ -4158,6 +4158,23 @@
     "만년 화롯불"
    ],
    "icon": "g005.png"
+  },
+  {
+   "name": "어떤 철학",
+   "tier": "EX",
+   "price": 500,
+   "source": "통상",
+   "related": "불명",
+   "first": "영생의 거울 (거울 던전 6)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "기프트 합성 확률이 항상 100%로 적용됨"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
   }
  ]
 }
