@@ -1771,6 +1771,23 @@
    "icon": "g158.png"
   },
   {
+   "name": "오라클",
+   "tier": "Ⅱ",
+   "price": 181,
+   "source": "통상",
+   "related": "불명",
+   "first": "폭풍의 거울 (거울 던전 4)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "턴 종료 시, 제일 많이 보유한 무작위 E.G.O 자원 하나를 제일 적게 보유한 무작위 E.G.O 자원 하나로 변경."
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "울화통",
    "tier": "Ⅱ",
    "keyword": "화상",
