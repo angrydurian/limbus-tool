@@ -887,7 +887,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g196.png"
   },
   {
    "name": "차원분리수거함",
@@ -2125,7 +2126,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g194.png"
   },
   {
    "name": "적색 지령",
@@ -2283,7 +2285,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g195.png"
   },
   {
    "name": "짧은 케인 소드",
@@ -2885,7 +2888,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g192.png"
   },
   {
    "name": "머나먼 별",
@@ -4128,7 +4132,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g193.png"
   },
   {
    "name": "앙갚음 장부",
