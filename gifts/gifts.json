@@ -4596,6 +4596,48 @@
    "icon": "g005.png"
   },
   {
+   "name": "달의 기억",
+   "tier": "Ⅴ",
+   "price": 600,
+   "source": "합성",
+   "related": "불명",
+   "first": "거울의 거울 (거울 던전 2)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "모든 적(환상체일 경우, 모든 부위)의 물리 내성과 속성 내성이 취약 상태가 됨."
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "recipe": [
+    "잘려나간 기억",
+    "구멍난 기억",
+    "바스라진 기억",
+    "조각 중 택 2종"
+   ],
+   "recipe_note": "특별",
+   "keyword": null
+  },
+  {
+   "name": "부",
+   "tier": "EX",
+   "price": 500,
+   "source": "통상",
+   "related": "불명",
+   "first": "영생의 거울 (거울 던전 6)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "모든 기프트 구매 및 강화 비용이 1로 고정됨.",
+     "보유한 코스트 500 당 모든 아군이 공격 레벨 증가 1 얻음 (최대 20)"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "어떤 철학",
    "tier": "EX",
    "price": 500,

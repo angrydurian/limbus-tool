@@ -18,7 +18,7 @@ for k in KW:
         if g.get("icon"):out+=[f"![{g['name']}](icons/{g['icon']})",""]
         out.append(f"- 가격: {price} · 획득: {src} · 강화: {'가능' if g.get('upgrade') else '불가'}")
         if g.get("pack"):out.append(f"- 전용 팩: {', '.join(g['pack'])}")
-        if g.get("recipe"):out.append(f"- 조합식: {' + '.join(g['recipe'])}")
+        if g.get("recipe"):out.append(f"- 조합식{('['+g['recipe_note']+']') if g.get('recipe_note') else ''}: {' + '.join(g['recipe'])}")
         meta=[x for x in (g.get("related") and f"연관: {g['related']}", g.get("first") and f"첫 등장: {g['first']}") if x]
         if meta:out.append("- "+" · ".join(meta))
         out.append("")
