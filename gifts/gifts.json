@@ -2202,6 +2202,23 @@
    "keyword": null
   },
   {
+   "name": "특별 카탈로그",
+   "tier": "Ⅱ",
+   "price": 200,
+   "source": "통상",
+   "related": "불명",
+   "first": "꿈결의 거울 (거울 던전 5)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "전투 보상 카드 등장 수 +1"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "포켓 암기 노트",
    "tier": "Ⅱ",
    "keyword": "타격",
