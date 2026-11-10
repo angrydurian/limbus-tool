@@ -126,7 +126,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g199.png"
   },
   {
    "name": "넝마",
@@ -1409,7 +1410,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g200.png"
   },
   {
    "name": "돌무덤",
@@ -3690,7 +3692,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g197.png"
   },
   {
    "name": "환상통",
@@ -3708,7 +3711,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g198.png"
   },
   {
    "name": "휴대용 구급상자",
@@ -4013,7 +4017,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g201.png"
   },
   {
    "name": "바스라진 기억",
