@@ -94,7 +94,8 @@
     "condition": "전투를 6회 승리할 시",
     "pair": "신검합일"
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g213.png"
   },
   {
    "name": "그날의 기록",
@@ -3311,7 +3312,8 @@
     "type": "축복",
     "pair": "귀기 서린 환도"
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g214.png"
   },
   {
    "name": "안식처",
