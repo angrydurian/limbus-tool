@@ -3569,6 +3569,23 @@
    "icon": "g090.png"
   },
   {
+   "name": "프레스티지 카드",
+   "tier": "Ⅲ",
+   "price": 250,
+   "source": "통상",
+   "related": "불명",
+   "first": "꿈결의 거울 (거울 던전 5)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "상점에서 E.G.O 기프트 구매 비용 30% 감소"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "피뢰침",
    "tier": "Ⅲ",
    "keyword": "충전",
