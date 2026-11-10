@@ -120,7 +120,8 @@
     "condition": "전투를 6회 승리할 시",
     "pair": "가능성"
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g215.png"
   },
   {
    "name": "극독성 외피",
@@ -2716,7 +2717,8 @@
     "type": "축복",
     "pair": "그날의 기록"
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g216.png"
   },
   {
    "name": "강요된 무게",
