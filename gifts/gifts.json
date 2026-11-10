@@ -3102,6 +3102,24 @@
    "icon": "g134.png"
   },
   {
+   "name": "성대한 환대",
+   "tier": "Ⅲ",
+   "price": 267,
+   "source": "통상",
+   "related": "환상체: 묶인 왕",
+   "first": "거울의 거울 (거울 던전 2)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "스테이지 시작 시, 오만 속성 E.G.O 자원 +5.",
+     "적 사망 시, 오만 속성 E.G.O 자원 +2, 나머지 속성의 E.G.O 자원 중 무작위 2종 +1"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "안식처",
    "tier": "Ⅲ",
    "keyword": "출혈",
