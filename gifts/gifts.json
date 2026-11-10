@@ -2230,6 +2230,24 @@
    "icon": "g162.png"
   },
   {
+   "name": "플라스크 속의 아이",
+   "tier": "Ⅱ",
+   "price": 212,
+   "source": "통상",
+   "related": "환상체: 유리병 속의 아이들",
+   "first": "시작의 거울 (거울 던전 1)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "스테이지 시작 시, 모든 속성의 E.G.O 자원 +1.",
+     "전투 승리시 가장 적게 보유한 E.G.O 자원 2종을 2개씩 얻음"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "해진 우산",
    "tier": "Ⅱ",
    "keyword": "파열",
