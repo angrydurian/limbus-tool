@@ -846,7 +846,8 @@
      "대상의 체력이 50% 미만이면 위력 감소 2 부여."
     ]
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g209.png"
   },
   {
    "name": "제한 풀린 제세동기",
@@ -3614,7 +3615,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g210.png"
   },
   {
    "name": "피뢰침",
@@ -4272,7 +4274,8 @@
      "획득 시, 편성 인격의 레벨 10 증가."
     ]
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g208.png"
   },
   {
    "name": "잘려나간 기억",
@@ -4749,7 +4752,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g207.png"
   },
   {
    "name": "어떤 철학",
