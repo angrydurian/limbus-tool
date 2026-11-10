@@ -2165,6 +2165,23 @@
    "icon": "g041.png"
   },
   {
+   "name": "진통제",
+   "tier": "Ⅱ",
+   "price": 183,
+   "source": "통상",
+   "related": "환상체: 히드라",
+   "first": "거울의 거울 (거울 던전 2)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "턴 시작 시 흐트러짐 상태인 아군이 있을 경우, 최대 체력의 12.5%만큼 회복하고 이번 턴 동안 보호 3 얻음."
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "짧은 케인 소드",
    "tier": "Ⅱ",
    "keyword": "참격",
