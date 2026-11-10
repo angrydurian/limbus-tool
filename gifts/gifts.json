@@ -537,7 +537,8 @@
      "색욕 속성 스킬을 보유한 아군에게 우선적으로 적용되며, 이 경우에는 피해량 증가 2를 추가로 얻음."
     ]
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g174.png"
   },
   {
    "name": "뼈 말뚝",
@@ -1198,7 +1199,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g173.png"
   },
   {
    "name": "결의",
@@ -1762,7 +1764,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g175.png"
   },
   {
    "name": "압박 붕대",
@@ -2180,7 +2183,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g176.png"
   },
   {
    "name": "증명의 깃털",
@@ -3705,7 +3709,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g172.png"
   },
   {
    "name": "검은 악보",
