@@ -3367,6 +3367,23 @@
    "icon": "g159.png"
   },
   {
+   "name": "체험형 플랜 가이드",
+   "tier": "Ⅲ",
+   "price": 250,
+   "source": "통상",
+   "related": "불명",
+   "first": "꿈결의 거울 (거울 던전 5)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "상점에서 스킬 교체 비용 30% 감소"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "추억",
    "tier": "Ⅲ",
    "keyword": "호흡",
