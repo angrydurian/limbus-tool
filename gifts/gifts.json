@@ -112,6 +112,23 @@
    "icon": "g149.png"
   },
   {
+   "name": "내일의 운세",
+   "tier": "Ⅰ",
+   "price": 140,
+   "source": "통상",
+   "related": "환상체: 별의 광인",
+   "first": "시작의 거울 (거울 던전 1)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "전투 보상 카드의 첫 번째 카드가 등장할 수 있는 가장 높은 등급으로 변경됨."
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "넝마",
    "tier": "Ⅰ",
    "keyword": "침잠",
@@ -1327,6 +1344,23 @@
     "plus2": []
    },
    "icon": "g081.png"
+  },
+  {
+   "name": "대기만성형 타투",
+   "tier": "Ⅱ",
+   "price": 183,
+   "source": "통상",
+   "related": "환상체: 박혀오는 천국",
+   "first": "시작의 거울 (거울 던전 1)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "단일 코인 스킬 또는 오만 속성의 스킬을 사용하여 적에게 적중 시, 다음 턴에 해당 아군이 공격 레벨 증가 2, 방어 레벨 증가 2 얻음 (최대 5)."
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
   },
   {
    "name": "돌무덤",
