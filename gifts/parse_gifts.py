@@ -57,6 +57,7 @@ if __name__=="__main__":
     for g in new:
         g["missing"]=[k for k in("tier","keyword","price") if g[k] is None and not(k=="keyword")]
         by[g["name"]]={**by.get(g["name"],{}),**{k:v for k,v in g.items() if v not in(None,[],{"base":[],"plus":[],"plus2":[]})}}
+        by[g["name"]].setdefault("keyword",None)  # 키워드 없음(범용)도 칸은 남김
         print(g["name"],g["tier"],g["keyword"],g["price"],g["source"],g["limit"],len(g["effects"]["base"]),len(g["effects"]["plus"]),len(g["effects"]["plus2"]))
     d["gifts"]=sorted(by.values(),key=lambda g:("Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ EX".split().index(g.get("tier") or "EX"),g["name"]))
     json.dump(d,open(p,"w",encoding="utf8"),ensure_ascii=False,indent=1);print("총",len(d["gifts"]))
