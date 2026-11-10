@@ -72,6 +72,30 @@
    "icon": "g147.png"
   },
   {
+   "name": "그날의 기록",
+   "tier": "Ⅰ",
+   "price": 149,
+   "source": "한정",
+   "limit": "하드 난이도 한정",
+   "related": "캐릭터: 호엔하임",
+   "first": "이름과 거미의 거울 (거울 던전 7)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "전투를 6회 승리할 시 해당 E.G.O 기프트가 변경됨",
+     "턴 시작 시 흐트러짐 상태가 아닌 무작위 아군 1명 강제 흐트러짐 발생"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "price_note": "저주&축복",
+   "curse": {
+    "type": "저주",
+    "condition": "전투를 6회 승리할 시"
+   },
+   "keyword": null
+  },
+  {
    "name": "극독성 외피",
    "tier": "Ⅰ",
    "keyword": "진동",
