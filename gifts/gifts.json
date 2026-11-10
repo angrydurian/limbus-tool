@@ -328,7 +328,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g167.png"
   },
   {
    "name": "동티",
@@ -1050,7 +1051,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g171.png"
   },
   {
    "name": "1B 타입 팔각 볼트",
@@ -1464,7 +1466,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g169.png"
   },
   {
    "name": "만년 동안 끓는 솥",
@@ -2377,7 +2380,8 @@
      "집중 전투 방식이 아닌 전투 스테이지 입장 시, 모든 적에게 최대 체력 30%만큼 고정 피해를 입힘."
     ]
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g170.png"
   },
   {
    "name": "커피와 종이학",
@@ -2610,7 +2614,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g168.png"
   },
   {
    "name": "고장난 나침반",
