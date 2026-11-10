@@ -29,8 +29,13 @@ def parse(text):
             i+=1;continue
         if sec is None and len(l)<60 and "전용" in l and not l.startswith("["):  # 예: "○○ 팩 전용", "A 팩, B 팩 전용"
             cur["pack"]=[re.sub(r"\s*전용.*$","",x).strip() for x in l.split(",") if x.strip()];i+=1;continue
-        if sec is None and len(l)<40 and ("한정" in l or "합성" in l):
+        if sec is None and len(l)<40 and ("한정" in l or "합성" in l or re.search(r"(저주|축복) 기프트",l)):
             parts=[x.strip() for x in l.split(",")]
+            for x in parts:
+                m2=re.match(r"^(저주|축복) 기프트$",x)
+                if m2:cur["curse"]={"type":m2.group(1)}
+            parts=[x for x in parts if not re.match(r"^(저주|축복) 기프트$",x)]
+            if not parts:i+=1;continue
             cur["source"]="합성" if any("합성" in x for x in parts) else "한정"
             lim=[x for x in parts if "한정" in x];cur["limit"]=", ".join(lim) or None;i+=1;continue
         m=re.match(r"^조합식(?:\[([^\]]+)\])?$",l)
@@ -54,6 +59,11 @@ def parse(text):
             else:cur["effects"][sec].append(l)
         i+=1
     if cur:out.append(cur)
+    for g in out:  # 저주 기프트: "…시 해당 E.G.O 기프트가 변경됨" 줄을 축복으로 바뀌는 조건으로
+        c=g.get("curse")
+        if c and c["type"]=="저주":
+            for e in g["effects"]["base"]:
+                if "기프트가 변경" in e:c["condition"]=re.sub(r"\s*해당 E\.G\.O 기프트가 변경됨\.?$","",e).strip()
     for g in out:  # +/++ 효과가 있으면 강화 가능으로 봄(나무위키 "강화 여부" 칸 오타 대비)
         if g["effects"]["plus"] and g["upgrade"] is False:g["upgrade"]=True;g["note_fix"]="강화 여부 칸은 '불가'였지만 +/++ 효과가 있어 가능으로 저장"
     return out
@@ -66,5 +76,12 @@ if __name__=="__main__":
         by[g["name"]]={**by.get(g["name"],{}),**{k:v for k,v in g.items() if v not in(None,[],{"base":[],"plus":[],"plus2":[]})}}
         by[g["name"]].setdefault("keyword",None)  # 키워드 없음(범용)도 칸은 남김
         print(g["name"],g["tier"],g["keyword"],g["price"],g["source"],g["limit"],len(g["effects"]["base"]),len(g["effects"]["plus"]),len(g["effects"]["plus2"]))
+    # 저주/축복 짝 자동 연결: 짝 없는 저주·축복 중 '연관'이 같은 것이 하나씩뿐이면 묶음 (애매하면 set_pack처럼 직접 지정)
+    un=lambda t:[g for g in by.values() if (g.get("curse") or {}).get("type")==t and not g["curse"].get("pair")]
+    for b in un("축복"):
+        cs=[c for c in un("저주") if c.get("related")==b.get("related")]
+        bs=[x for x in un("축복") if x.get("related")==b.get("related")]
+        if len(cs)==1 and len(bs)==1:
+            cs[0]["curse"]["pair"]=b["name"];b["curse"]["pair"]=cs[0]["name"];print("짝:",cs[0]["name"],"→",b["name"])
     d["gifts"]=sorted(by.values(),key=lambda g:("Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ EX".split().index(g.get("tier") or "EX"),g["name"]))
     json.dump(d,open(p,"w",encoding="utf8"),ensure_ascii=False,indent=1);print("총",len(d["gifts"]))

@@ -17,6 +17,8 @@ for k in KW:
         out.append("")
         if g.get("icon"):out+=[f"![{g['name']}](icons/{g['icon']})",""]
         out.append(f"- 가격: {price} · 획득: {src} · 강화: {'가능' if g.get('upgrade') else '불가'}")
+        c=g.get("curse")
+        if c:out.append(f"- {c['type']} 기프트"+(f" → 축복: {c.get('pair','(짝 미정)')}"+(f" (조건: {c['condition']})" if c.get('condition') else "") if c['type']=="저주" else f" ← 저주: {c.get('pair','(짝 미정)')}"))
         if g.get("pack"):out.append(f"- 전용 팩: {', '.join(g['pack'])}")
         if g.get("recipe"):out.append(f"- 조합식{('['+g['recipe_note']+']') if g.get('recipe_note') else ''}: {' + '.join(g['recipe'])}")
         if g.get("recipe_detail"):out.append(f"  - {g['recipe_detail']}")
@@ -29,6 +31,14 @@ for k in KW:
             if e.get(key):
                 out.append(f"**{lab}**");out.append("")
                 out+=[f"- {l}" for l in e[key]];out.append("")
+cur=[g for g in d if (g.get("curse") or {}).get("type")=="저주"]
+if cur:
+    out+=["## 저주 → 축복 기프트","","저주 기프트를 가진 채로 조건을 채우면 축복 기프트로 바뀜 (위 목록에도 같이 들어 있음)",""]
+    bn={g["name"]:g for g in d}
+    for g in sorted(cur,key=lambda g:(TI.index(g.get("tier") or "EX"),g["name"])):
+        p=g["curse"].get("pair");b=bn.get(p)
+        out.append(f"- {g['tier']} {g['name']} → {(b['tier']+' '+p) if b else '(짝 미정)'}"+(f" · 조건: {g['curse']['condition']}" if g['curse'].get('condition') else ""))
+    out.append("")
 packs={}
 for g in d:
     for pk in g.get("pack") or []:packs.setdefault(pk,[]).append(g)

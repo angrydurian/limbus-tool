@@ -1,5 +1,5 @@
 {
- "about": "림버스 컴퍼니 거울 던전 E.G.O 기프트. 출처: 나무위키(글자 복사). tier: Ⅰ~Ⅴ·EX, keyword: 하나(화상·출혈·진동·파열·침잠·호흡·충전·참격·관통·타격) 또는 null(키워드 없음), source: 통상/합성/한정, limit: 한정 조건(난이도 등), pack: 전용 팩 이름 목록(팩 전용 기프트만, 기본 키워드 목록에도 같이 들어감), price: 상점 가격, upgrade: 강화 가능 여부, effects: {base, plus, plus2}, missing: 아직 못 받은 칸",
+ "about": "림버스 컴퍼니 거울 던전 E.G.O 기프트. 출처: 나무위키(글자 복사). tier: Ⅰ~Ⅴ·EX, keyword: 하나(화상·출혈·진동·파열·침잠·호흡·충전·참격·관통·타격) 또는 null(키워드 없음), source: 통상/합성/한정, limit: 한정 조건(난이도 등), pack: 전용 팩 이름 목록(팩 전용 기프트만, 기본 키워드 목록에도 같이 들어감), price: 상점 가격, upgrade: 강화 가능 여부, effects: {base, plus, plus2}, missing: 아직 못 받은 칸, price_note: 코스트 칸 메모, curse: 저주/축복 짝 {type: 저주|축복, pair: 짝 기프트 이름, condition: 저주→축복 조건}",
  "gifts": [
   {
    "name": "가시밭길",
@@ -541,6 +541,31 @@
    },
    "keyword": null,
    "icon": "g174.png"
+  },
+  {
+   "name": "빛바랜 건틀릿",
+   "tier": "Ⅰ",
+   "price": 149,
+   "source": "한정",
+   "limit": "하드 난이도 한정",
+   "related": "집단: T사",
+   "first": "이름과 거미의 거울 (거울 던전 7)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "전투를 6회 승리할 시 해당 E.G.O 기프트가 변경됨",
+     "모든 아군의 속도 최소, 최댓값 5 감소 (1 미만으로 내려가지 않음)"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "price_note": "저주&축복",
+   "curse": {
+    "type": "저주",
+    "condition": "전투를 6회 승리할 시",
+    "pair": "황금빛 시간"
+   },
+   "keyword": null
   },
   {
    "name": "뼈 말뚝",
@@ -3719,6 +3744,31 @@
    },
    "keyword": null,
    "icon": "g198.png"
+  },
+  {
+   "name": "황금빛 시간",
+   "tier": "Ⅲ",
+   "price": 250,
+   "source": "한정",
+   "limit": "하드 난이도 한정",
+   "related": "집단: T사",
+   "first": "이름과 거미의 거울 (거울 던전 7)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "모든 아군의 속도 최소, 최댓값 3 증가",
+     "자신보다 속도가 4 이상 느린 대상에게 스킬의 최종 위력 +2",
+     "적에게 공격 적중 시 다음 턴에 속박 1 부여 (턴당 4회)"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "price_note": "저주&축복",
+   "curse": {
+    "type": "축복",
+    "pair": "빛바랜 건틀릿"
+   },
+   "keyword": null
   },
   {
    "name": "휴대용 구급상자",
