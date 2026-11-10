@@ -1644,7 +1644,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g188.png"
   },
   {
    "name": "수집하는 해골",
@@ -1886,7 +1887,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g189.png"
   },
   {
    "name": "울화통",
@@ -3082,7 +3084,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g187.png"
   },
   {
    "name": "생체 맹독 바이알",
@@ -4213,7 +4216,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g190.png"
   },
   {
    "name": "욕망 조각",
@@ -4616,7 +4620,8 @@
     "plus2": []
    },
    "price_note": "선택지전용",
-   "keyword": null
+   "keyword": null,
+   "icon": "g191.png"
   },
   {
    "name": "황홀경",
