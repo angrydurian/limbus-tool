@@ -1015,7 +1015,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g205.png"
   },
   {
    "name": "편광",
@@ -3185,7 +3186,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g202.png"
   },
   {
    "name": "안식처",
@@ -3450,7 +3452,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g204.png"
   },
   {
    "name": "추억",
@@ -3540,7 +3543,8 @@
     "plus": [],
     "plus2": []
    },
-   "keyword": null
+   "keyword": null,
+   "icon": "g203.png"
   },
   {
    "name": "튿어진 소매",
@@ -4726,7 +4730,8 @@
      "잠식 조각",
      "타성 조각"
     ]
-   }
+   },
+   "icon": "g206.png"
   },
   {
    "name": "부",
