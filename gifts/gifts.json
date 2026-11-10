@@ -3862,6 +3862,23 @@
    "icon": "g092.png"
   },
   {
+   "name": "믿음",
+   "tier": "Ⅳ",
+   "price": 424,
+   "source": "통상",
+   "related": "불명",
+   "first": "거울의 거울 (거울 던전 2)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "더하기 코인을 굴리는 스킬을 사용할 경우, 다음 턴 시작 시 해당 아군의 정신력이 최댓값으로 적용. (침식된 대상은 적용되지 않음)"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "바스라진 기억",
    "tier": "Ⅳ",
    "keyword": "타격",
