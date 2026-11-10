@@ -1064,6 +1064,23 @@
    "icon": "g052.png"
   },
   {
+   "name": "게걸스러운 망치",
+   "tier": "Ⅱ",
+   "price": 213,
+   "source": "통상",
+   "related": "환상체: 꾸벅이",
+   "first": "거울의 거울 (거울 던전 2)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "전투 승리 시, (사망한 적의 수 x 3)만큼 코스트 획득."
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "keyword": null
+  },
+  {
    "name": "결의",
    "tier": "Ⅱ",
    "keyword": "참격",
