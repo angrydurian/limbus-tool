@@ -29,7 +29,7 @@ def parse(text):
             i+=1;continue
         if sec is None and len(l)<60 and "전용" in l and not l.startswith("["):  # 예: "○○ 팩 전용", "A 팩, B 팩 전용"
             cur["pack"]=[re.sub(r"\s*전용.*$","",x).strip() for x in l.split(",") if x.strip()];i+=1;continue
-        if sec is None and len(l)<40 and ("한정" in l or "합성" in l or re.search(r"(저주|축복) 기프트",l)):
+        if sec is None and len(l)<80 and ("한정" in l or "합성" in l or re.search(r"(저주|축복) 기프트",l)):
             parts=[x.strip() for x in l.split(",")]
             for x in parts:
                 m2=re.match(r"^(저주|축복) 기프트$",x)
@@ -44,7 +44,8 @@ def parse(text):
             if not parts and cur.get("pack"):cur["source"]="한정";i+=1;continue
             if not parts:i+=1;continue
             cur["source"]="합성" if any("합성" in x for x in parts) else "한정"
-            lim=[x for x in parts if "한정" in x];cur["limit"]=", ".join(lim) or None;i+=1;continue
+            lim=[(x if "한정" in x else x+" 한정") for x in parts if "한정" in x or "난이도" in x]  # "하드 난이도, '팩' 한정" → 하드 난이도 한정
+            cur["limit"]=", ".join(lim) or None;i+=1;continue
         m=re.match(r"^조합식(?:\[([^\]]+)\])?$",l)
         if m:  # 괄호 안 하위 재료는 뺌. "조합식[특별]"처럼 붙은 표시는 recipe_note로
             cur["recipe"]=[x.strip() for x in re.sub(r"\([^)]*\)","",lines[i+1]).split("+")]
