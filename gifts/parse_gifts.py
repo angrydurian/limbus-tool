@@ -37,10 +37,10 @@ def parse(text):
             parts=[x for x in parts if not re.match(r"^(저주|축복) 기프트$",x)]
             Q="['‘\"“]";QE="['’\"”]"  # "'A' 한정", "'A', 'B' 한정", "'A' 한정, 'B' 한정" → 팩 여러 개
             for x in parts:
-                if re.fullmatch(rf"({Q}.+?{QE}\s*)+(한정)?",x):
+                if re.fullmatch(rf"({Q}.+?{QE}\s*(?:[&,]|및)?\s*)+(한정)?",x):
                     for nm in re.findall(rf"{Q}(.+?){QE}",x):
                         if nm not in cur.setdefault("pack",[]):cur["pack"].append(nm)
-            parts=[x for x in parts if not re.fullmatch(rf"({Q}.+?{QE}\s*)+(한정)?",x)]
+            parts=[x for x in parts if not re.fullmatch(rf"({Q}.+?{QE}\s*(?:[&,]|및)?\s*)+(한정)?",x)]
             if not parts and cur.get("pack"):cur["source"]="한정";i+=1;continue
             if not parts:i+=1;continue
             cur["source"]="합성" if any("합성" in x for x in parts) else "한정"
