@@ -35,10 +35,12 @@ def parse(text):
                 m2=re.match(r"^(저주|축복) 기프트$",x)
                 if m2:cur["curse"]={"type":m2.group(1)}
             parts=[x for x in parts if not re.match(r"^(저주|축복) 기프트$",x)]
-            for x in parts:  # "'속하지 못하는' 한정" → 팩 전용
-                m2=re.match(r"^['‘\"“](.+?)['’\"”]\s*한정$",x)
-                if m2:cur.setdefault("pack",[]).append(m2.group(1))
-            parts=[x for x in parts if not re.match(r"^['‘\"“].+?['’\"”]\s*한정$",x)]
+            Q="['‘\"“]";QE="['’\"”]"  # "'A' 한정", "'A', 'B' 한정", "'A' 한정, 'B' 한정" → 팩 여러 개
+            for x in parts:
+                if re.fullmatch(rf"({Q}.+?{QE}\s*)+(한정)?",x):
+                    for nm in re.findall(rf"{Q}(.+?){QE}",x):
+                        if nm not in cur.setdefault("pack",[]):cur["pack"].append(nm)
+            parts=[x for x in parts if not re.fullmatch(rf"({Q}.+?{QE}\s*)+(한정)?",x)]
             if not parts and cur.get("pack"):cur["source"]="한정";i+=1;continue
             if not parts:i+=1;continue
             cur["source"]="합성" if any("합성" in x for x in parts) else "한정"
