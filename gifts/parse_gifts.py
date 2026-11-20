@@ -53,7 +53,10 @@ def parse(text):
             if cur["source"]=="통상":cur["source"]="합성"
             if m.group(1):cur["recipe_note"]=m.group(1)
             i+=2;continue
-        if l=="연관":cur["related"]=lines[i+1];i+=2;continue
+        if l=="연관":  # 연관이 여러 줄이면 ", "로 이음 (예: 집단: 피쿼드호 / 캐릭터: 창백한 고래)
+            j=i+1;rel=[]
+            while j<len(lines) and lines[j] not in LABELS and not lines[j].startswith("조합식"):rel.append(lines[j]);j+=1
+            cur["related"]=", ".join(rel);i=j;continue
         if l=="등급":cur["tier"]=cur["tier"] or TIERS.get(lines[i+1]);i+=2;continue
         if l=="첫 등장":cur["first"]=lines[i+1];i+=2;continue
         if l=="강화 여부":cur["upgrade"]=lines[i+1]=="가능";i+=2;continue
