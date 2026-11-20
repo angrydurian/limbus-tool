@@ -4373,6 +4373,27 @@
    "icon": "g260.png"
   },
   {
+   "name": "붉은 색술",
+   "tier": "Ⅲ",
+   "keyword": "참격",
+   "price": 253,
+   "source": "한정",
+   "related": "집단: 검계",
+   "first": "호수의 거울 (거울 던전 3)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "적의 참격 내성이 1.5 이하인 경우, 참격 내성 +0.3"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "pack": [
+    "육참골단",
+    "육참골단 BokGak"
+   ]
+  },
+  {
    "name": "붉은색 넥타이",
    "tier": "Ⅲ",
    "keyword": "화상",
