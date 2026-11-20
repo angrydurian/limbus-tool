@@ -1449,7 +1449,8 @@
     "육참골단",
     "육참골단 BokGak"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g308.png"
   },
   {
    "name": "게걸스러운 망치",
@@ -3741,7 +3742,8 @@
    },
    "pack": [
     "육참골단 BokGak"
-   ]
+   ],
+   "icon": "g307.png"
   },
   {
    "name": "네잎클로버",
@@ -4945,7 +4947,8 @@
    "pack": [
     "육참골단 BokGak"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g309.png"
   },
   {
    "name": "인슐레이터",
@@ -5762,7 +5765,8 @@
    "pack": [
     "육참골단",
     "육참골단 BokGak"
-   ]
+   ],
+   "icon": "g306.png"
   },
   {
    "name": "남겨진 신탁",
@@ -7306,7 +7310,8 @@
    "pack": [
     "육참골단",
     "육참골단 BokGak"
-   ]
+   ],
+   "icon": "g310.png"
   },
   {
    "name": "확률과 선택",
