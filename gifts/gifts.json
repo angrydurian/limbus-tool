@@ -1520,7 +1520,8 @@
     "시간살인시간",
     "시간살인시간 BokGak"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g319.png"
   },
   {
    "name": "경외심",
@@ -2597,7 +2598,8 @@
    },
    "pack": [
     "시간살인시간 BokGak"
-   ]
+   ],
+   "icon": "g316.png"
   },
   {
    "name": "에칭 시계침",
@@ -3698,7 +3700,8 @@
    },
    "pack": [
     "시간살인시간 BokGak"
-   ]
+   ],
+   "icon": "g317.png"
   },
   {
    "name": "거울 속의 꽃",
@@ -4890,7 +4893,8 @@
     "시간살인시간",
     "시간살인시간 BokGak"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g315.png"
   },
   {
    "name": "성대한 환대",
@@ -7235,7 +7239,8 @@
    },
    "pack": [
     "시간살인시간 BokGak"
-   ]
+   ],
+   "icon": "g318.png"
   },
   {
    "name": "출혈성 쇼크",
