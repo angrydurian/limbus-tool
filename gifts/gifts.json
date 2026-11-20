@@ -1234,7 +1234,8 @@
    "pack": [
     "20번구의 기적 BokGak"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g298.png"
   },
   {
    "name": "혈액 포집팩",
@@ -1407,7 +1408,8 @@
    "pack": [
     "20번구의 기적",
     "20번구의 기적 BokGak"
-   ]
+   ],
+   "icon": "g296.png"
   },
   {
    "name": "거울 촉각 공감각",
@@ -2106,7 +2108,8 @@
    "pack": [
     "20번구의 기적 BokGak"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g299.png"
   },
   {
    "name": "불결함",
@@ -4600,7 +4603,8 @@
     "20번구의 기적",
     "20번구의 기적 BokGak"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g300.png"
   },
   {
    "name": "승리의 증표",
@@ -6212,7 +6216,8 @@
     "포장용 끈",
     "포장용 상자"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g297.png"
   },
   {
    "name": "수작",
