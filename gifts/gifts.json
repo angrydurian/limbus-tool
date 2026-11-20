@@ -3641,6 +3641,26 @@
    "icon": "g185.png"
   },
   {
+   "name": "뜨거운 육즙 다리살",
+   "tier": "Ⅲ",
+   "keyword": "화상",
+   "price": 259,
+   "source": "한정",
+   "related": "집단: K사",
+   "first": "폭풍의 거울 (거울 던전 4)",
+   "upgrade": false,
+   "effects": {
+    "base": [
+     "스킬로 적에게 화상 부여 시 화상 횟수 3 증가. (턴 당 최대 3회)"
+    ],
+    "plus": [],
+    "plus2": []
+   },
+   "pack": [
+    "헬스 치킨"
+   ]
+  },
+  {
    "name": "라만차랜드 자유이용권",
    "tier": "Ⅲ",
    "keyword": "출혈",
