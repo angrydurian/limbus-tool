@@ -31,7 +31,7 @@ def parse(text):
         if sec is None and len(l)<60 and "전용" in l and not l.startswith("["):  # 예: "○○ 팩 전용", "A 팩, B 팩 전용"
             cur["pack"]=[re.sub(r"\s*전용.*$","",x).strip() for x in l.split(",") if x.strip()];i+=1;continue
         if sec is None and len(l)<160 and ("한정" in l or "합성" in l or re.search(r"(저주|축복) 기프트",l)):
-            parts=[x.strip() for x in l.split(",")]
+            parts=[x.strip() for x in re.findall(r"(?:['‘\"“][^'’\"”]*['’\"”]|[^,'‘\"“])+",l) if x.strip()]  # 따옴표 안의 쉼표('현혹, 방황, 불신')는 나누지 않음
             for x in parts:
                 m2=re.match(r"^(저주|축복) 기프트$",x)
                 if m2:cur["curse"]={"type":m2.group(1)}
