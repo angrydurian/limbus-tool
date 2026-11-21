@@ -19,7 +19,7 @@ def parse(text):
             cur=new();cur["tier"]=m.group(1);cur["name"]=m.group(2).strip();sec=None;i+=1;continue
         if cur is None:i+=1;continue
         if l.startswith("림버스UI"):i+=1;continue
-        m=re.match(r'^림버스\s*컴퍼니\s+(\S+)\s+(.+)$',l)  # '림버스 컴퍼니'처럼 띄어 쓴 경우도
+        m=re.match(r'^림버스\s*컴퍼니\s+(\S+)\s+(.+)$',l) if sec is None else None  # '림버스 컴퍼니'처럼 띄어 쓴 경우도
         if m:
             if m.group(1)=="코스트":
                 cur["price"]=int(re.sub(r'\D','',m.group(2).split("[")[0]) or 0)
