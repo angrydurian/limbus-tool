@@ -5604,7 +5604,8 @@
     "LCB 정기검진",
     "LCB 정기검진 BokGak"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g351.png"
   },
   {
    "name": "잔가지",
@@ -5695,7 +5696,8 @@
    "pack": [
     "LCB 정기검진",
     "LCB 정기검진 BokGak"
-   ]
+   ],
+   "icon": "g352.png"
   },
   {
    "name": "조각난 칼날",
