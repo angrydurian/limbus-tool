@@ -5,7 +5,8 @@ TIERS={"1":"Ⅰ","2":"Ⅱ","3":"Ⅲ","4":"Ⅳ","5":"Ⅴ","EX":"EX","Ⅰ":"Ⅰ","
 KWS=["화상","출혈","진동","파열","침잠","호흡","충전","참격","관통","타격"]
 LABELS={"연관","등급","첫 등장","강화 여부","효과","기본 효과","+","++","언어별 표기","기프트 상세 정보"}
 def parse(text):
-    lines=[re.sub(r"\[\d+\]","",l).strip() for l in text.splitlines()]  # 나무위키 각주 번호 제거
+    lines=[re.sub(r"\[([^\]]+)\]\((?:https?://)[^)]*\)",r"\1",l) for l in text.splitlines()]  # 마크다운 링크 [이름](주소) → 이름
+    lines=[re.sub(r"\[\d+\]","",l).strip() for l in lines]  # 나무위키 각주 번호 제거
     lines=[l for l in lines if l]
     out=[];cur=None;sec=None
     def new(): return {"name":None,"tier":None,"keyword":None,"price":None,"source":"통상","limit":None,"related":None,"first":None,"upgrade":None,"effects":{"base":[],"plus":[],"plus2":[]}}
@@ -18,7 +19,7 @@ def parse(text):
             cur=new();cur["tier"]=m.group(1);cur["name"]=m.group(2).strip();sec=None;i+=1;continue
         if cur is None:i+=1;continue
         if l.startswith("림버스UI"):i+=1;continue
-        m=re.match(r'^림버스\s*컴퍼니\s+(\S+)\s+(.+)$',l)  # '림버스 컴퍼니'처럼 띄어 쓴 경우도
+        m=re.match(r'^림버스\s*컴퍼니\s+(\S+)\s+(.+)$',l) if sec is None else None  # '림버스 컴퍼니'처럼 띄어 쓴 경우도
         if m:
             if m.group(1)=="코스트":
                 cur["price"]=int(re.sub(r'\D','',m.group(2).split("[")[0]) or 0)
@@ -29,8 +30,8 @@ def parse(text):
             i+=1;continue
         if sec is None and len(l)<60 and "전용" in l and not l.startswith("["):  # 예: "○○ 팩 전용", "A 팩, B 팩 전용"
             cur["pack"]=[re.sub(r"\s*전용.*$","",x).strip() for x in l.split(",") if x.strip()];i+=1;continue
-        if sec is None and len(l)<80 and ("한정" in l or "합성" in l or re.search(r"(저주|축복) 기프트",l)):
-            parts=[x.strip() for x in l.split(",")]
+        if sec is None and len(l)<160 and ("한정" in l or "합성" in l or re.search(r"(저주|축복) 기프트",l)):
+            parts=[x.strip() for x in re.findall(r"(?:['‘\"“][^'’\"”]*['’\"”]|[^,'‘\"“])+",l) if x.strip()]  # 따옴표 안의 쉼표('현혹, 방황, 불신')는 나누지 않음
             for x in parts:
                 m2=re.match(r"^(저주|축복) 기프트$",x)
                 if m2:cur["curse"]={"type":m2.group(1)}
@@ -52,7 +53,10 @@ def parse(text):
             if cur["source"]=="통상":cur["source"]="합성"
             if m.group(1):cur["recipe_note"]=m.group(1)
             i+=2;continue
-        if l=="연관":cur["related"]=lines[i+1];i+=2;continue
+        if l=="연관":  # 연관이 여러 줄이면 ", "로 이음 (예: 집단: 피쿼드호 / 캐릭터: 창백한 고래)
+            j=i+1;rel=[]
+            while j<len(lines) and lines[j] not in LABELS and not lines[j].startswith("조합식"):rel.append(lines[j]);j+=1
+            cur["related"]=", ".join(rel);i=j;continue
         if l=="등급":cur["tier"]=cur["tier"] or TIERS.get(lines[i+1]);i+=2;continue
         if l=="첫 등장":cur["first"]=lines[i+1];i+=2;continue
         if l=="강화 여부":cur["upgrade"]=lines[i+1]=="가능";i+=2;continue
