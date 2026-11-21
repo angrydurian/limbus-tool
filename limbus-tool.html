@@ -942,8 +942,8 @@ function ghFull(col){ // 대기 중인 변경까지 합친 깃허브용 파일 �
   const list=[...by.values()];
   const about={identities:"사이트 저장 공간(db) 인격 사본 → v0.5부터 사이트가 쓰는 원본",egos:"E.G.O 데이터 → v0.5부터 사이트가 쓰는 원본",recs:"추천 덱 데이터. 사이트가 이 파일을 내장해 씀(v0.5부터)"}[col];
   return JSON.stringify({about,count:list.length,[col]:list},null,1)}
-function ghSaveFile(name,text,msg){
-  try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"application/json"}));a.download=name;document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000);msg.textContent=name+" 내려받기를 시작했어요. 안 되면 아래 칸의 내용을 복사하세요."}catch(e){msg.textContent="내려받기가 막혔어요. 아래 칸의 내용을 복사하세요."}}
+function ghSaveFile(name,text,msg){ // 아티팩트 화면은 파일 내려받기를 막아서, 전체 내용을 칸에 띄우고 복사함
+  try{navigator.clipboard.writeText(text).then(()=>msg.textContent=name+" 전체 내용을 복사했어요. 깃허브 data/db/"+name+" 편집 화면에 통째로 붙여 넣으세요.",()=>msg.textContent="아래 칸이 선택됐어요. 복사해서 깃허브 data/db/"+name+"에 붙여 넣으세요.")}catch(e){msg.textContent="아래 칸이 선택됐어요. 복사해서 깃허브 data/db/"+name+"에 붙여 넣으세요."}}
 function renderGhPanel(){
   const box=$("#adminBody");if(!box||!cloud.admin)return;
   let pn=$("#ghPanel");if(!pn){pn=el("div",{class:"panel",id:"ghPanel"});box.prepend(pn)}
@@ -959,11 +959,11 @@ function renderGhPanel(){
   const clr=el("button",{class:"btn ghost",onclick:ev=>{const b=ev.currentTarget;if(b.dataset.armed!=="1"){b.dataset.armed="1";b.textContent="한 번 더 누르면 대기 목록을 비워요";return}
     ghSavePend({});ghApply();rebuildData();rebuildEgos();if(typeof renderRecs==="function")renderRecs();renderGhPanel()}},"대기 목록 비우기");
   pn.append(el("h2",{},"깃허브 반영 대기",el("small",{},"사이트 데이터 원본은 깃허브 · 데이터 기준 "+((typeof GH_DB!=="undefined"&&GH_DB.at)||"?"))),
-    el("p",{class:"note"},"인격·E.G.O·추천 덱을 저장하면 이 기기에만 먼저 적용되고 여기에 모여요. 깃허브에 반영되어야 모든 사람에게 보여요. 방법 1: '변경분 복사' → 채팅에 붙여넣기. 방법 2: 파일을 내려받아 깃허브 data/db/ 폴더의 같은 파일을 바꾸기."),
+    el("p",{class:"note"},"인격·E.G.O·추천 덱을 저장하면 이 기기에만 먼저 적용되고 여기에 모여요. 깃허브에 반영되어야 모든 사람에게 보여요. 방법 1: '변경분 복사' → 채팅에 붙여넣기. 방법 2: '○○.json 전체 복사' → 깃허브 data/db/ 폴더의 같은 파일 내용을 통째로 바꾸기."),
     rows.length?el("ul",{},...rows):el("p",{class:"note"},"대기 중인 변경이 없어요."),
     el("div",{class:"line"},
       el("button",{class:"btn",onclick:copy,disabled:rows.length?null:""},"변경분 복사 (채팅용)"),
-      ...["identities","egos","recs"].map(col=>el("button",{class:"btn ghost",onclick:()=>{const t=ghFull(col);show(t);ghSaveFile(col+".json",t,msg)}},col+".json 내려받기"))),
+      ...["identities","egos","recs"].map(col=>el("button",{class:"btn ghost",onclick:()=>{const t=ghFull(col);show(t);ghSaveFile(col+".json",t,msg)}},col+".json 전체 복사"))),
     rows.length?el("div",{class:"line"},clr):"",msg,out);
 }
 {const _ra=renderAdmin;renderAdmin=function(){_ra();renderGhPanel()}}
