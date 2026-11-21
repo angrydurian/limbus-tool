@@ -5854,7 +5854,8 @@
    "pack": [
     "LCB 정기검진",
     "LCB 정기검진 BokGak"
-   ]
+   ],
+   "icon": "g360.png"
   },
   {
    "name": "점화 장갑",
