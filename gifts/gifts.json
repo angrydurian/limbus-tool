@@ -6937,7 +6937,8 @@
    "pack": [
     "LCB 정기검진 BokGak"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g364.png"
   },
   {
    "name": "덮칠 파도",
