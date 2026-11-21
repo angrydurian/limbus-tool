@@ -6053,7 +6053,8 @@
     "LCB 정기검진",
     "LCB 정기검진 BokGak"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g348.png"
   },
   {
    "name": "특별 계약",

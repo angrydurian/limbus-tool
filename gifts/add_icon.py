@@ -37,5 +37,6 @@ for src,name in zip(args[::2],args[1::2]):
     while r>l and edge([(r,y) for y in range(t,b+1)]):r-=1
     crop=crop.crop((l,t,r+1,b+1))
     fn=by[name].get("icon") or nextname()
+    if crop.width>180:crop=crop.resize((173,round(crop.height*173/crop.width)),Image.LANCZOS)  # 확대 캡처는 다른 아이콘 크기(가로 173)에 맞춤
     crop.save(os.path.join("gifts/icons",fn));by[name]["icon"]=fn;print(name,"→",fn,crop.size)
 json.dump(d,open(p,"w",encoding="utf8"),ensure_ascii=False,indent=1)
