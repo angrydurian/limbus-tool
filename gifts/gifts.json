@@ -5809,7 +5809,8 @@
    "pack": [
     "LCB 정기검진",
     "LCB 정기검진 BokGak"
-   ]
+   ],
+   "icon": "g361.png"
   },
   {
    "name": "잔불",
