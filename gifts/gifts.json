@@ -6486,7 +6486,8 @@
     "통상 작전용 장비",
     "작전 승인 카드"
    ],
-   "keyword": null
+   "keyword": null,
+   "icon": "g350.png"
   },
   {
    "name": "과충전된 배터리",
