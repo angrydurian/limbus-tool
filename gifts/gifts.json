@@ -3936,7 +3936,8 @@
    "pack": [
     "LCB 정기검진",
     "LCB 정기검진 BokGak"
-   ]
+   ],
+   "icon": "g346.png"
   },
   {
    "name": "거울 속의 꽃",
