@@ -110,6 +110,10 @@
 - 전용 효과의 제목 줄("[… 전용 상시 효과]")도 `extra.desc`에 그대로 넣는다. 조건 없는 효과는 `desc`에 남긴다.
 - 확인 필요 키는 `P.extra` (5해석은 `T.P.extra`).
 
+## 시너지 (v0.6)
+
+- E.G.O 캡처에 "시너지" 영역이 있으면 E.G.O JSON에는 넣지 않고, `data/db/synergies.json` 형식(`docs/HANDOFF.md` 5.4)으로 따로 만든다.
+
 ## 6. 5해석 (`t5`, `t5data`)
 
 - 기본은 **4해석** 화면 값이다. `awaken`, `corrosion`, `passive`에는 4해석 값을 넣는다.

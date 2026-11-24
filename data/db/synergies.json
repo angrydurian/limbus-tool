@@ -1,0 +1,5 @@
+{
+ "about": "시너지 데이터(v0.6). 시너지마다 이름, 단계별 효과(n명 이상 출격 시), 해당 인격·E.G.O 목록. 사이트가 내장해 씀(tools/embed_db.py). 형식은 docs/HANDOFF.md 5.4",
+ "count": 0,
+ "synergies": []
+}
