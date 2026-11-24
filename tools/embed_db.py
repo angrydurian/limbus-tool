@@ -1,10 +1,10 @@
-"""깃허브 데이터(data/db/identities.json, egos.json, recs.json) → limbus-tool.html 안의 GH_DB로 넣기 (v0.5)
+"""깃허브 데이터(data/db/identities.json, egos.json, recs.json, synergies.json) → limbus-tool.html 안의 GH_DB로 넣기 (v0.5)
 사용: python3 -I tools/embed_db.py   (저장소 맨 위에서 실행)
 사이트는 인격·E.G.O·추천 덱을 이 내장 데이터로 보여 준다. 데이터를 바꾼 뒤 이 도구를 돌리고 사이트를 다시 올린다."""
 import json,re,datetime
 H="limbus-tool.html"
 db={}
-for n in ("identities","egos","recs"):
+for n in ("identities","egos","recs","synergies"):
     db[n]=json.load(open(f"data/db/{n}.json",encoding="utf8"))[n]
 db["at"]=datetime.date.today().isoformat()
 js=json.dumps(db,ensure_ascii=False,separators=(",",":")).replace("</","<\\/")
