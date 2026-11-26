@@ -8,6 +8,8 @@
 - 런타임 기능(capabilities)은 그대로 유지한다:
   `{"db":{"rules":[{"path":"identities","read":"view","write":"admin"},{"path":"egos","read":"view","write":"admin"},{"path":"drafts","read":"admin","write":"admin"},{"path":"history","read":"admin","write":"admin"},{"path":"recs","read":"view","write":"admin"}]},"sample":{},"user":{}}`
 
+- **디자인 시험용 링크 (2026-11-26 사용자 요청, 예외)**: `https://claude.ai/artifact/2ZoMjsnxDiYJn7MAMW7D8Z` — 본 링크를 대신하지 않는 미리 보기 전용. 저장 공간 기능 없이 올림(데이터는 사이트 안에 있음). 큰 화면 변경은 여기서 먼저 확인받고 본 링크에 반영한다.
+
 ## 작업 순서
 1. 요구사항을 정리해서 보여주고, 사용자가 명시적으로 승인한 뒤에 코드를 고친다.
 2. 고친 뒤 headless 브라우저(playwright)로 테스트한다. 실패하면 올리지 않고 보고한다.

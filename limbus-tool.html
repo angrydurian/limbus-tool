@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>림버스 편성 도구 v0.6</title>
+<title>림버스 편성 도구 v0.7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
@@ -298,6 +298,7 @@ button.cell:hover{background:var(--panel2)}
 #gcOut{width:100%;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
 .hide{display:none!important}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
 /* v0.6: 기프트 라이브러리 · 시너지 · 백업 */
 .gfil{display:flex;flex-direction:column;gap:8px;margin-top:14px}
 .gfil .line{display:flex;gap:6px;flex-wrap:wrap}
@@ -327,6 +328,88 @@ button.cell:hover{background:var(--panel2)}
 .syn .step b{font-weight:600}
 .syn .step.on b{color:var(--gluttony)}
 .bkp textarea{font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+
+/* ================= v0.7: 림버스 분위기 디자인 (어두운 고동색 · 구리 테두리 · 한 줄 배치) ================= */
+:root,:root[data-theme="dark"],:root:not([data-theme="light"]){
+  --bg:#17100c;--panel:#231812;--panel2:#2e2018;--ink:#f1e3c8;--muted:#b49c80;--line:#5a3e2a;
+  --accent:#e0482a;--accent-ink:#fff4e6;--warn:#f0b24a;--warn-bg:#3d2a10;
+  --copper:#a8692f;--copper2:#d79a52;--gold:#e9c27a;--crimson:#8f1d1d;--crimson2:#b8322a;
+  color-scheme:dark;
+}
+body{background:#17100c url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .35 0 0 0 0 .2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") repeat;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 50% -10%,rgba(168,105,47,.18),transparent 60%),radial-gradient(ellipse at 50% 120%,rgba(143,29,29,.18),transparent 55%)}
+.wrap{max-width:880px;padding:14px 16px 60px}
+/* 머리 · 메뉴 (맨 위 한 줄) */
+header.top{flex-direction:column;align-items:stretch;gap:10px;border-bottom:0;padding-bottom:0}
+h1{font-family:var(--serif);color:var(--gold);letter-spacing:.02em;text-shadow:0 2px 0 #000,0 0 18px rgba(233,194,122,.15)}
+.ver{color:var(--muted)}
+nav.tabs{position:sticky;top:0;z-index:15;overflow-x:auto;scrollbar-width:none;gap:6px;padding:8px;margin:0 -2px;background:linear-gradient(#2a1c14,#1d140f);border:2px solid var(--copper);box-shadow:inset 0 0 0 1px #000,0 4px 10px rgba(0,0,0,.5);border-radius:4px}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{flex:0 0 auto;border-radius:3px;border:1px solid var(--line);background:#1a120d;color:var(--muted);font-weight:600;padding:7px 14px}
+nav.tabs button[aria-selected="true"]{background:linear-gradient(#a3281f,#6e1414);color:#fff1dc;border-color:var(--accent);box-shadow:0 0 0 1px #000,0 0 10px rgba(224,72,42,.45)}
+/* 한 줄 배치 */
+.grid,.ogrid{grid-template-columns:minmax(0,1fr)!important}
+.cards,.glist{grid-template-columns:minmax(0,1fr)!important}
+.home{grid-template-columns:minmax(0,1fr)!important;gap:10px}
+.side{gap:14px}
+/* 패널: 구리 테두리 + 모서리 못 */
+.panel,.card,.gcard,.kwi,.syn,.skill,.obox,.opt,.fprev,.scroller{border-color:var(--copper)!important}
+.panel{position:relative;background:
+  radial-gradient(circle at 9px 9px,#e2b06b 0 2px,#4a2c17 2.5px,transparent 3.5px),
+  radial-gradient(circle at calc(100% - 9px) 9px,#e2b06b 0 2px,#4a2c17 2.5px,transparent 3.5px),
+  radial-gradient(circle at 9px calc(100% - 9px),#e2b06b 0 2px,#4a2c17 2.5px,transparent 3.5px),
+  radial-gradient(circle at calc(100% - 9px) calc(100% - 9px),#e2b06b 0 2px,#4a2c17 2.5px,transparent 3.5px),
+  linear-gradient(#2a1d15,#20160f);border:2px solid var(--copper);border-radius:4px;box-shadow:inset 0 0 0 1px #000,inset 0 0 24px rgba(0,0,0,.45),0 6px 14px rgba(0,0,0,.45)}
+.panel h2{font-family:var(--serif);color:var(--gold);background:linear-gradient(90deg,rgba(143,29,29,.55),rgba(143,29,29,.08) 70%);border-bottom:1px solid var(--copper);padding:11px 26px}
+.panel h2 small{color:var(--muted)}
+.an,.decks{padding-left:18px;padding-right:18px}
+/* 카드 */
+.card,.gcard,.kwi{background:linear-gradient(90deg,#2c1f17,#221811);border:1px solid var(--copper);border-left:4px solid var(--copper);border-radius:3px;box-shadow:0 3px 8px rgba(0,0,0,.4)}
+.card:hover,.gcard:hover,.kwi:hover{border-left-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 3px 10px rgba(0,0,0,.5)}
+.card .n,.gcard .gn,.idh,.who .sinner,.opt .n,.syn .sn,.skill .sh .t{color:var(--gold)}
+.gico{border:2px solid var(--copper);background:#120c08;border-radius:3px}
+.gtier,.slot{border-color:var(--gold);color:var(--gold)}
+/* 홈 메뉴 판: 한 줄씩 긴 액자 */
+.hbtn{position:relative;min-height:96px;padding:16px 20px;border:2px solid var(--copper);border-radius:4px;background:linear-gradient(100deg,#3a1512,#241712 55%,#1d140f);box-shadow:inset 0 0 0 1px #000,inset 0 0 30px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.45)}
+.home .hbtn:nth-child(even){background:linear-gradient(100deg,#2d1f12,#22170f 55%,#1a120c)}
+.hbtn:hover{border-color:var(--accent);box-shadow:inset 0 0 0 1px #000,0 0 14px rgba(224,72,42,.35)}
+.hbtn .hen{font:600 11px/1 var(--sans);letter-spacing:.18em;color:var(--copper2)}
+.hbtn .ht{color:var(--gold);font-size:22px;text-shadow:0 2px 0 #000}
+.hbtn .hd{color:#d8c4a4}
+/* 버튼 · 입력 */
+.btn{background:linear-gradient(#a3281f,#6e1414);color:#fff1dc;border:1px solid var(--accent);border-radius:3px;box-shadow:inset 0 1px 0 rgba(255,220,180,.25),0 2px 0 #000}
+.btn:hover{filter:brightness(1.12)}
+.step{border-radius:3px}
+.btn.ghost,.back,.step,.segb,.ochk,.t5,.dbtn{background:#1a120d;color:var(--ink);border:1px solid var(--copper)}
+.step[aria-current="step"],.segb[aria-pressed="true"],.ochk[aria-pressed="true"],.t5[aria-pressed="true"],.osb[aria-pressed="true"]{background:linear-gradient(#a3281f,#6e1414)!important;color:#fff1dc!important;border-color:var(--accent)!important}
+input,select,textarea,.fi,.pick,.filters select,.gfil select,.gfil input,.decks input,.decks select{background:#140e0a!important;color:var(--ink)!important;border:1px solid var(--copper)!important;border-radius:3px!important}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+/* 편성 줄 */
+.row{border-bottom:1px solid #3c291c}
+.order{border-color:var(--copper);color:var(--muted);border-radius:4px}
+.order.on{background:linear-gradient(#a3281f,#6e1414);border:1.5px solid var(--accent);color:#fff1dc}
+.order.wait{background:#2e2018;border:1.5px solid var(--copper2);color:var(--gold)}
+.row.focus{box-shadow:inset 4px 0 0 var(--accent);background:rgba(224,72,42,.08)}
+.role.go{background:var(--crimson2);color:#fff1dc}.role.wait{border-color:var(--copper2);color:var(--copper2)}
+.tile{border-color:var(--line)}.tile.s3{border-color:var(--gold);color:var(--gold)}
+/* 칩 · 배지 · 표 */
+.chip,.gbadge,.kwchip,.echip,.gchip,.kwc{background:#1a120d;border-color:var(--line);color:var(--ink)}
+.gbadge.hard{border-color:var(--accent);color:#ff8a6e}
+.sincnt div,.res7 div,.osb{background:#1a120d;border-color:var(--line)}
+.egot thead th.sn,.egot tbody th.sn{background:#20160f}
+.egot td.c{border-left-color:#3c291c}.egot th,.egot td{border-bottom-color:#3c291c}
+button.cell:hover{background:rgba(224,72,42,.08)}
+.notice{background:#2a1a0c;border-left-color:var(--warn);color:var(--ink)}
+/* 상세 창 */
+.sheet-bg{background:rgba(5,3,2,.72)}
+.sheet{background:linear-gradient(#251a13,#1b130e);border:2px solid var(--copper)!important;box-shadow:0 0 0 1px #000,0 18px 40px rgba(0,0,0,.7)}
+@media (min-width:861px){.sheet{width:820px}}
+.sheet .hd{background:linear-gradient(90deg,rgba(143,29,29,.6),rgba(143,29,29,.05) 75%);border-bottom:1px solid var(--copper)}
+.sheet .hd h3{color:var(--gold)}
+.sec{color:var(--gold);border-bottom-color:var(--copper)}
+.kwtip{background:#231812;border:1px solid var(--copper2);color:var(--ink)}
+.empty,.note,.msg{color:var(--muted)}
+
 </style>
 </head>
 <body>
@@ -334,7 +417,7 @@ button.cell:hover{background:var(--panel2)}
   <header class="top">
     <div>
       <h1>림버스 편성 도구</h1>
-      <div class="ver">v0.6 · 출격 7명 · 대기 5명 · 4동기화 · E.G.O 4해석 기준 · <span id="syncState">이 기기에만 저장</span></div>
+      <div class="ver">v0.7 · 출격 7명 · 대기 5명 · 4동기화 · E.G.O 4해석 기준 · <span id="syncState">이 기기에만 저장</span></div>
     </div>
     <nav class="tabs" role="tablist">
       <button role="tab" aria-selected="true" data-tab="home">홈</button>
@@ -350,13 +433,13 @@ button.cell:hover{background:var(--panel2)}
 
   <section id="tab-home">
     <div class="home">
-      <button class="hbtn" data-home="build"><span class="ht">편성</span><span class="hd">인격 → E.G.O → 최종본 3단계로 12명을 짜요. 게임 편성 코드를 불러오고 만들 수 있어요.</span></button>
-      <button class="hbtn" data-home="data"><span class="ht">인격 데이터</span><span class="hd">수감자·죄악·키워드·등급으로 인격을 찾아 스킬과 패시브를 봐요.</span></button>
-      <button class="hbtn" data-home="keywords"><span class="ht">키워드 <small id="homeKwCount"></small></span><span class="hd">기본·범용·고유 키워드 설명과, 그 키워드를 쓰는 인격·E.G.O 목록을 봐요.</span></button>
-      <button class="hbtn" data-home="own"><span class="ht">내 보유</span><span class="hd">가진 인격·E.G.O를 체크하고 동기화·해석 단계를 적어요. 편성할 때 보유한 것만 골라 볼 수 있어요.</span></button>
-      <button class="hbtn" data-home="recs"><span class="ht">추천 덱</span><span class="hd">관리자가 올린 추천 편성을 보고, 내 편성으로 불러오거나 게임 코드를 복사해요. 없는 인격·E.G.O도 알려 줘요.</span></button>
-      <button class="hbtn" data-home="gift"><span class="ht">거울 던전 기프트 <small id="homeGiftCount"></small></span><span class="hd">E.G.O 기프트를 키워드·등급·팩으로 찾고, 효과와 조합식을 봐요.</span></button>
-      <button class="hbtn hide" id="homeAdmin" data-home="admin"><span class="ht">관리자</span><span class="hd">캡처를 데이터로 바꾸고 인격·E.G.O를 입력해요.</span></button>
+      <button class="hbtn" data-home="build"><span class="hen">FORMATION</span><span class="ht">편성</span><span class="hd">인격 → E.G.O → 최종본 3단계로 12명을 짜요. 게임 편성 코드를 불러오고 만들 수 있어요.</span></button>
+      <button class="hbtn" data-home="data"><span class="hen">IDENTITY</span><span class="ht">인격 데이터</span><span class="hd">수감자·죄악·키워드·등급으로 인격을 찾아 스킬과 패시브를 봐요.</span></button>
+      <button class="hbtn" data-home="keywords"><span class="hen">KEYWORDS</span><span class="ht">키워드 <small id="homeKwCount"></small></span><span class="hd">기본·범용·고유 키워드 설명과, 그 키워드를 쓰는 인격·E.G.O 목록을 봐요.</span></button>
+      <button class="hbtn" data-home="own"><span class="hen">COLLECTION</span><span class="ht">내 보유</span><span class="hd">가진 인격·E.G.O를 체크하고 동기화·해석 단계를 적어요. 편성할 때 보유한 것만 골라 볼 수 있어요.</span></button>
+      <button class="hbtn" data-home="recs"><span class="hen">RECOMMENDED</span><span class="ht">추천 덱</span><span class="hd">관리자가 올린 추천 편성을 보고, 내 편성으로 불러오거나 게임 코드를 복사해요. 없는 인격·E.G.O도 알려 줘요.</span></button>
+      <button class="hbtn" data-home="gift"><span class="hen">MIRROR DUNGEON · E.G.O GIFT</span><span class="ht">거울 던전 기프트 <small id="homeGiftCount"></small></span><span class="hd">E.G.O 기프트를 키워드·등급·팩으로 찾고, 효과와 조합식을 봐요.</span></button>
+      <button class="hbtn hide" id="homeAdmin" data-home="admin"><span class="hen">ADMIN</span><span class="ht">관리자</span><span class="hd">캡처를 데이터로 바꾸고 인격·E.G.O를 입력해요.</span></button>
     </div>
     <p class="note">스킬·패시브 설명의 키워드는 PC에서는 마우스를 올리면, 휴대폰에서는 누르면 설명이 떠요.</p>
   </section>
@@ -377,7 +460,7 @@ button.cell:hover{background:var(--panel2)}
             <div class="line"><input id="gcIn" placeholder="게임 편성 코드 붙여넣기 (H4sI…)" aria-label="게임 편성 코드" autocomplete="off" spellcheck="false"><button class="btn ghost" id="gcLoad">코드 불러오기</button></div>
             <div class="msg hide" id="gcMsg"></div>
           </div>
-          <p class="note" style="margin:0;padding:8px 14px;border-bottom:1px solid var(--line)">빈 번호 칸을 누르면 다음 순번으로 들어가요(1–7번 출격, 8번부터 대기). 번호가 있는 두 칸을 차례로 누르면 자리가 바뀌고, 같은 칸을 두 번 누르면 편성에서 빠져요. 인격을 누르면 오른쪽에 분석이 나와요.</p>
+          <p class="note" style="margin:0;padding:8px 14px;border-bottom:1px solid var(--line)">빈 번호 칸을 누르면 다음 순번으로 들어가요(1–7번 출격, 8번부터 대기). 번호가 있는 두 칸을 차례로 누르면 자리가 바뀌고, 같은 칸을 두 번 누르면 편성에서 빠져요. 인격을 누르면 아래쪽 분석 칸에 그 인격의 분석이 나와요.</p>
           <ul class="rows" id="rows"></ul>
         </div>
         <div class="side" id="side1">
