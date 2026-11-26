@@ -410,6 +410,13 @@ button.cell:hover{background:rgba(224,72,42,.08)}
 .kwtip{background:#231812;border:1px solid var(--copper2);color:var(--ink)}
 .empty,.note,.msg{color:var(--muted)}
 
+
+/* v0.7: 위쪽 탭 없앰 — 홈 메뉴 판으로 이동, 각 화면 위에 '홈으로' */
+nav.tabs{display:none!important}
+.homebar{display:flex;align-items:center;gap:10px;margin:4px 0 2px}
+.homebar .btn{padding:8px 16px}
+.homebar .where{font:700 18px var(--serif);color:var(--gold)}
+h1{cursor:pointer}
 </style>
 </head>
 <body>
@@ -1886,7 +1893,10 @@ document.addEventListener("scroll",()=>{if(kwTipFor)hideKwTip()},true);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&kwTipFor)hideKwTip()});
 
 /* ---------- 홈 · 탭 ---------- */
+const TAB_NAME={build:"편성",data:"인격 데이터",own:"내 보유",recs:"추천 덱",gift:"거울 던전 기프트",admin:"관리자"};
 function goTab(t){
+  {let hb=$("#homeBar");if(!hb){hb=el("div",{class:"homebar",id:"homeBar"},el("button",{class:"btn ghost",onclick:()=>{goTab("home");window.scrollTo(0,0)}},"← 홈으로"),el("span",{class:"where"}));$("header.top").after(hb)}
+   hb.classList.toggle("hide",t==="home");hb.querySelector(".where").textContent=TAB_NAME[t]||""}
   document.querySelectorAll("nav.tabs button").forEach(x=>x.setAttribute("aria-selected",x.dataset.tab===t?"true":"false"));
   ["home","build","data","own","recs","gift","admin"].forEach(k=>$("#tab-"+k).classList.toggle("hide",k!==t));
   $("#v2notice").classList.toggle("hide",t!=="build");
@@ -1896,6 +1906,7 @@ function goTab(t){
   if(t==="gift"&&typeof renderGifts==="function")renderGifts();
 }
 document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>goTab(b.dataset.tab));
+$("header.top h1").addEventListener("click",()=>goTab("home"));
 document.querySelectorAll("[data-home]").forEach(b=>b.addEventListener("click",()=>{const t=b.dataset.home;if(t==="keywords")openKeywords();else goTab(t)}));
 $("#homeKwCount").textContent=Object.keys(KW_INFO).length+"개";
 const homeAdmin=new MutationObserver(()=>$("#homeAdmin").classList.toggle("hide",$("#adminTab").classList.contains("hide")));
