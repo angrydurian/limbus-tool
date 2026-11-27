@@ -5,6 +5,7 @@
 끝나면 보고서.md에 결과를 쓰고, 문제가 있으면 종료 코드 1 (자동 처리는 이때 커밋하지 않는다).
 저장소 맨 위 폴더에서 실행한다."""
 import json, os, re, subprocess, sys, tempfile, time, urllib.request, importlib.util
+sys.dont_write_bytecode = True  # parse_gifts를 불러올 때 __pycache__가 생기지 않게
 
 ROOT = os.getcwd()
 SINNERS = ["이상", "파우스트", "돈키호테", "료슈", "뫼르소", "홍루", "히스클리프", "이스마엘", "로쟈", "싱클레어", "오티스", "그레고르"]
@@ -44,8 +45,10 @@ def run(args):
 def image_urls(text):
     urls = re.findall(r"!\[[^\]]*\]\((https?://[^)\s]+)\)", text)
     urls += re.findall(r"<img[^>]*\ssrc=[\"'](https?://[^\"']+)[\"']", text)
-    # 순서대로(글에 나온 순서) 정렬
-    return sorted(set(urls), key=text.index)
+    # 글에 나온 순서대로 (같은 캡처를 두 번 넣었어도 각각 셈)
+    pos = {}
+    for u in urls: pos.setdefault(u, [m.start() for m in re.finditer(re.escape(u), text)])
+    return [u for _, u in sorted((p, u) for u, ps in pos.items() for p in ps)]
 
 
 def download(url, path):
@@ -121,8 +124,9 @@ def gift(body, rep):
     if probs: raise Fail("검사에서 걸렸어요:\n" + "\n".join("- " + p for p in probs))
     run(["gifts/make_md.py"])
     added = [n for n in touched if n not in before]
-    changed = [n for n in touched if n in before and before[n] != after[n]]
-    same = [n for n in touched if n in before and before[n] == after[n]]
+    iconed = set(targets[:len(urls)])  # 아이콘을 새로 붙였으면 json이 같아도 바뀐 것
+    changed = [n for n in touched if n in before and (before[n] != after[n] or n in iconed)]
+    same = [n for n in touched if n in before and n not in changed]
     rep += [f"**기프트** 추가 {len(added)}개 · 수정 {len(changed)}개 · 변경 없음 {len(same)}개 (총 {len(after)}개)", ""]
     if added or changed:
         rep += ["| | 기프트 | 등급 | 키워드 | 가격 | 효과(기본/+/++) | 팩 | 아이콘 |", "|---|---|---|---|---|---|---|---|"]
@@ -175,7 +179,7 @@ def check_ego(x, tag):
     if not isinstance(c, list) or not all(isinstance(v, list) and len(v) == 2 for v in c): p.append('cost는 [["분노",2],...] 형식')
     if not isinstance(x.get("awaken"), dict): p.append("awaken(각성 스킬) 없음")
     for k, v in (x.get("res") or {}).items():
-        if v not in ("취약", "보통", "내성"): p.append(f"res.{k} 값 '{v}'는 취약/보통/내성이 아님")
+        if v not in ("취약", "보통", "내성", "견딤"): p.append(f"res.{k} 값 '{v}'는 취약/보통/내성/견딤이 아님")
     return [f"{tag}: {m}" for m in p]
 
 
@@ -218,9 +222,11 @@ def db(body, rep):
         if kind == "identities": x.setdefault("src", "capture")
         pend[kind][eid] = {"data": x}
     if probs: raise Fail("검사에서 걸렸어요:\n" + "\n".join("- " + p for p in probs))
-    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf8") as f:
-        json.dump(pend, f, ensure_ascii=False); tp = f.name
-    run(["tools/apply_pending.py", tp])
+    todo = {n: {i: w for i, w in items.items() if same_as(cur[n].get(i), w, n) is False} for n, items in pend.items()}
+    if any(todo.values()):  # 이미 똑같은 항목은 빼고 반영
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf8") as f:
+            json.dump(todo, f, ensure_ascii=False); tp = f.name
+        run(["tools/apply_pending.py", tp])
     after = {n: {x["id"]: x for x in json.load(open(f"data/db/{n}.json", encoding="utf8"))[n]} for n in ("identities", "egos", "recs")}
     names = {"identities": "인격", "egos": "E.G.O", "recs": "추천 덱"}
     rows, done = [], []
@@ -235,6 +241,13 @@ def db(body, rep):
             "| | 종류 | 수감자 | 이름 | id |", "|---|---|---|---|---|"] + rows + [""]
     if notes: rep += ["참고:"] + ["- " + m for m in notes] + [""]
     return done
+
+
+def same_as(old, w, n):
+    """지금 데이터와 똑같은 변경이면 True"""
+    if w.get("deleted"): return old is None
+    new = dict(w["data"]) if n != "recs" else {k: v for k, v in w.items() if k != "id"}
+    return old is not None and {k: v for k, v in old.items() if k != "id"} == new
 
 
 def base36(n):
