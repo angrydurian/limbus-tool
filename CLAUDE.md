@@ -8,6 +8,8 @@
 - 런타임 기능(capabilities)은 그대로 유지한다:
   `{"db":{"rules":[{"path":"identities","read":"view","write":"admin"},{"path":"egos","read":"view","write":"admin"},{"path":"drafts","read":"admin","write":"admin"},{"path":"history","read":"admin","write":"admin"},{"path":"recs","read":"view","write":"admin"}]},"sample":{},"user":{}}`
 
+- **디자인 시험용 링크 (2026-11-26 사용자 요청, 예외)**: `https://claude.ai/artifact/2ZoMjsnxDiYJn7MAMW7D8Z` — 본 링크를 대신하지 않는 미리 보기 전용. 저장 공간 기능 없이 올림(데이터는 사이트 안에 있음). 큰 화면 변경은 여기서 먼저 확인받고 본 링크에 반영한다.
+
 ## 작업 순서
 1. 요구사항을 정리해서 보여주고, 사용자가 명시적으로 승인한 뒤에 코드를 고친다.
 2. 고친 뒤 headless 브라우저(playwright)로 테스트한다. 실패하면 올리지 않고 보고한다.
@@ -24,6 +26,7 @@
 - **v0.5부터 인격·E.G.O·추천 덱의 원본은 깃허브 `data/db/`**(identities.json, egos.json, recs.json)이다. 사이트는 이 데이터를 파일 안에 넣어 쓴다(`python3 -I tools/embed_db.py`, 기프트는 `tools/embed_gifts.py`). 시너지는 `data/db/synergies.json`. 저장 공간(db)의 identities/egos/recs는 더 읽지 않는다.
   - 사이트 관리자 탭에서 저장하면 그 기기에만 먼저 적용되고 '깃허브 반영 대기'에 모인다. 사용자가 '변경분 복사' JSON을 채팅에 주면 `python3 -I tools/apply_pending.py 파일`로 `data/db/`에 반영해 main에 올리고, 다음 버전 때 사이트에 넣는다.
   - 캡처로 받은 인격·E.G.O JSON도 같은 형식으로 `data/db/`에 넣을 수 있다.
+- **입력 도구 (2026-11-27)**: 사용자가 깃허브 이슈 양식(기프트 / 인격·E.G.O)으로 직접 넣으면 자동 처리가 main에 커밋한다. 자세한 건 `docs/입력-도구.md`. 캡처를 JSON으로 바꿔 줄 때는 "이슈 양식 'JSON' 칸에 붙여 넣으면 된다"고 안내한다. 대화 시작 때 '확인 필요' 라벨이 붙은 열린 이슈가 있는지도 본다.
 - 개인 데이터(편성·보유), 변환 초안(drafts), 변경 기록(history)은 계속 저장 공간(db)에 있다.
 - 기획서(계획)는 `docs/기획서.md`를 고친다. claude.ai 기획서 문서는 2026-11-14 이후 고치지 않는다.
 
