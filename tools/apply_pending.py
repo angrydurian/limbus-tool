@@ -13,4 +13,4 @@ for n in ("identities","egos","recs"):
         if i not in by:order.append(i)
         by[i]=x;print(n,"추가/수정",i,x.get("name"))
     d[n]=[by[i] for i in order if i in by];d["count"]=len(d[n])
-    json.dump(d,open(f,"w",encoding="utf8"),ensure_ascii=False,indent=1)
+    json.dump(d,open(f,"w",encoding="utf8"),ensure_ascii=False,indent=1,sort_keys=True)  # 키 순서를 기존 파일과 같게
